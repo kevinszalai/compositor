@@ -274,7 +274,7 @@ function getSession() {
   return null;
 }
 function saveSession(email) {
-  localStorage.setItem(SESSION_KEY, JSON.stringify({email, expiry: Date.now()+8*60*60*1000}));
+  localStorage.setItem(SESSION_KEY, JSON.stringify({email, expiry: Date.now()+90*24*60*60*1000}));
 }
 function clearSession() { localStorage.removeItem(SESSION_KEY); }
 
