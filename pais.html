@@ -571,7 +571,7 @@ async function init() {
   try{
     const q=query(collection(db,'flyers'),where('paises','array-contains',paisKey));
     const snap=await getDocs(q);
-    if(snap.empty){document.getElementById('ph-loading').style.display='none';document.getElementById('no-flyers-msg').style.display='block';return;}
+    if(snap.empty){document.getElementById('ph-loading').style.display='none';document.getElementById('app-main').style.display='block';document.getElementById('no-flyers-msg').style.display='block';return;}
     flyers=snap.docs.map(d=>({id:d.id,...d.data()}));
     activeFlyerIdx=0;syncCfg();
     document.getElementById('main-content').style.display='block';
