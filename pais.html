@@ -348,9 +348,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 window._sendOtpEmail = function(toEmail, otpCode) {
+  const name = toEmail.split('@')[0];
   return emailjs.send('service_m8ftgar', 'template_h7zpuoa', {
-    to_email: toEmail,
-    otp_code: otpCode,
+    email: toEmail,
+    passcode: otpCode,
+    name: name,
   });
 };
 </script>
