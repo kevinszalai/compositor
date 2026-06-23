@@ -154,6 +154,9 @@ input[type=range]{width:100%;accent-color:var(--ua-blue);}
 .ac-save-btn:hover{background:#006570;}
 .ac-status{font-size:11px;text-align:center;margin-top:6px;min-height:16px;}
 
+.admin-countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;}
+.admin-country-link{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;text-decoration:none;font-size:12px;font-weight:600;color:var(--ua-dark);transition:all .2s;text-align:center;}
+.admin-country-link:hover{border-color:var(--ua-cyan);background:var(--ua-cyan-lt);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,82,143,.12);}
 footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;border-top:1px solid var(--border);margin-top:2rem;background:var(--surface);}
 @media(max-width:900px){
   .layout2{grid-template-columns:1fr;}
@@ -203,6 +206,7 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
     <button class="tab active" data-tab="flyers">🖼 Flyers</button>
     <button class="tab" data-tab="accesos">🔐 Accesos</button>
     <button class="tab" data-tab="metricas">📊 Métricas</button>
+    <button class="tab" data-tab="paises">🌎 Ver países</button>
   </div>
 
   <!-- TAB FLYERS -->
@@ -645,6 +649,34 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
       </div>
     </div>
   </div>
+  <!-- TAB PAÍSES -->
+  <div class="tab-panel" id="tab-paises">
+    <div class="card">
+      <div class="card-label">Acceso directo a cada país</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">
+        Abre la página del compositor de cada país en una nueva pestaña. Podés probar cómo lo ve un comercial.
+      </p>
+      <div class="admin-countries-grid">
+          <a class="admin-country-link" href="pais.html?pais=argentina" target="_blank"><img src="https://flagcdn.com/w48/ar.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Argentina</span></a>
+          <a class="admin-country-link" href="pais.html?pais=bolivia" target="_blank"><img src="https://flagcdn.com/w48/bo.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Bolivia</span></a>
+          <a class="admin-country-link" href="pais.html?pais=chile" target="_blank"><img src="https://flagcdn.com/w48/cl.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Chile</span></a>
+          <a class="admin-country-link" href="pais.html?pais=colombia" target="_blank"><img src="https://flagcdn.com/w48/co.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Colombia</span></a>
+          <a class="admin-country-link" href="pais.html?pais=costa_rica" target="_blank"><img src="https://flagcdn.com/w48/cr.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Costa Rica</span></a>
+          <a class="admin-country-link" href="pais.html?pais=ecuador" target="_blank"><img src="https://flagcdn.com/w48/ec.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Ecuador</span></a>
+          <a class="admin-country-link" href="pais.html?pais=el_salvador" target="_blank"><img src="https://flagcdn.com/w48/sv.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>El Salvador</span></a>
+          <a class="admin-country-link" href="pais.html?pais=guatemala" target="_blank"><img src="https://flagcdn.com/w48/gt.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Guatemala</span></a>
+          <a class="admin-country-link" href="pais.html?pais=honduras" target="_blank"><img src="https://flagcdn.com/w48/hn.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Honduras</span></a>
+          <a class="admin-country-link" href="pais.html?pais=mexico" target="_blank"><img src="https://flagcdn.com/w48/mx.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>México</span></a>
+          <a class="admin-country-link" href="pais.html?pais=nicaragua" target="_blank"><img src="https://flagcdn.com/w48/ni.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Nicaragua</span></a>
+          <a class="admin-country-link" href="pais.html?pais=panama" target="_blank"><img src="https://flagcdn.com/w48/pa.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Panamá</span></a>
+          <a class="admin-country-link" href="pais.html?pais=paraguay" target="_blank"><img src="https://flagcdn.com/w48/py.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Paraguay</span></a>
+          <a class="admin-country-link" href="pais.html?pais=peru" target="_blank"><img src="https://flagcdn.com/w48/pe.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Perú</span></a>
+          <a class="admin-country-link" href="pais.html?pais=dominicana" target="_blank"><img src="https://flagcdn.com/w48/do.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Rep. Dominicana</span></a>
+          <a class="admin-country-link" href="pais.html?pais=uruguay" target="_blank"><img src="https://flagcdn.com/w48/uy.png" width="48" style="border-radius:6px;display:block;margin:0 auto 8px"/><span>Uruguay</span></a>
+      </div>
+    </div>
+  </div>
+
 </main>
 <footer>Panel de administración · Universal Assistance · v1.7</footer>
 
