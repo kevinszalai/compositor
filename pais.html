@@ -203,7 +203,7 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 <body>
 
 <!-- LOGIN -->
-<div id="login-screen">
+<div id="login-screen" style="display:none">
   <div class="login-card">
     <h2>Bienvenido</h2>
     <p class="login-sub">Generador de<br><b id="login-country-name">Creador de cobranding</b></p>
@@ -216,7 +216,7 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 </div>
 
 <!-- OTP -->
-<div id="otp-screen">
+<div id="otp-screen" style="display:none">
   <div class="otp-card">
     <div class="otp-icon">📬</div>
     <h2>Ingresá el código</h2>
@@ -422,6 +422,7 @@ if (session) {
   showApp(session.email);
 } else {
   document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app-main').style.display = 'none';
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────
