@@ -29,7 +29,6 @@ html,body{min-height:100%;font-family:'Poppins',sans-serif;background:var(--bg);
 .user-info{font-size:11px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:8px;}
 .btn-logout{font-size:11px;color:rgba(255,255,255,.6);background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:'Poppins',sans-serif;transition:all .15s;}
 .btn-logout:hover{color:#fff;border-color:rgba(255,255,255,.7);}
-
 header{background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:2px solid var(--ua-cyan);position:sticky;top:0;z-index:20;}
 .hinner{max-width:1160px;margin:0 auto;padding:0 2rem;height:54px;display:flex;align-items:center;justify-content:space-between;}
 .brand{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--ua-blue);display:flex;align-items:center;gap:8px;text-transform:uppercase;}
@@ -37,46 +36,32 @@ header{background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom
 .country-badge{display:flex;align-items:center;gap:6px;background:var(--ua-blue-lt);border:1.5px solid var(--border2);border-radius:8px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--ua-blue);}
 
 /* LOGIN */
-#login-screen{position:fixed;inset:0;z-index:40;background:linear-gradient(135deg,var(--ua-dark) 0%,var(--ua-blue) 60%,var(--ua-teal) 100%);display:flex;align-items:center;justify-content:center;padding:1rem;}
-.login-card{background:#fff;border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;}
-
-
-.login-card h2{font-size:1.1rem;font-weight:700;color:var(--ua-dark);margin-bottom:.3rem;}
-.login-sub{font-size:12px;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
-.login-input{width:100%;padding:10px 12px;border:1.5px solid var(--border2);border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:13px;background:var(--bg);color:var(--ua-dark);outline:none;transition:border-color .15s;margin-bottom:8px;}
-.login-input:focus{border-color:var(--ua-blue);background:#fff;}
-.login-domain{font-size:11px;color:var(--hint);margin-bottom:1rem;}
-.login-domain b{color:var(--ua-blue);}
-.btn-login{width:100%;padding:11px;border-radius:var(--r);background:var(--ua-blue);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,82,143,.3);}
-.btn-login:hover:not(:disabled){background:var(--accent-hover);}
-.btn-login:disabled{opacity:.5;cursor:not-allowed;}
-.login-msg{font-size:12px;margin-top:10px;min-height:18px;line-height:1.5;}
-.login-msg.error{color:var(--red);}
-.login-msg.success{color:var(--green);}
-
-/* OTP STEP */
-#otp-screen{position:fixed;inset:0;z-index:40;background:linear-gradient(135deg,var(--ua-dark) 0%,var(--ua-blue) 60%,var(--ua-teal) 100%);display:none;align-items:center;justify-content:center;padding:1rem;}
-.otp-card{background:#fff;border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;}
-.otp-icon{font-size:2.5rem;margin-bottom:.75rem;}
-.otp-card h2{font-size:1.1rem;font-weight:700;color:var(--ua-dark);margin-bottom:.3rem;}
-.otp-card p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:1.5rem;}
-.otp-email-display{font-weight:600;color:var(--ua-blue);}
+#login-screen{position:fixed;inset:0;z-index:40;background:var(--ua-blue);display:none;align-items:center;justify-content:center;padding:1rem;}
+#otp-screen{position:fixed;inset:0;z-index:40;background:var(--ua-blue);display:none;align-items:center;justify-content:center;padding:1rem;}
+.auth-card{background:#fff;border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.25);text-align:center;}
+.auth-card h2{font-size:1.3rem;font-weight:700;color:var(--ua-dark);margin-bottom:.4rem;}
+.auth-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6;}
+.auth-sub b{color:var(--ua-blue);}
+.auth-input{width:100%;padding:11px 14px;border:1.5px solid var(--border2);border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:13px;background:var(--bg);color:var(--ua-dark);outline:none;transition:border-color .15s;margin-bottom:10px;}
+.auth-input:focus{border-color:var(--ua-blue);background:#fff;}
+.auth-btn{width:100%;padding:12px;border-radius:var(--r);background:var(--ua-blue);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,82,143,.3);}
+.auth-btn:hover:not(:disabled){background:var(--accent-hover);}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;}
+.auth-msg{font-size:12px;margin-top:10px;min-height:18px;}
+.auth-msg.error{color:var(--red);}
+.auth-footer{font-size:11px;color:var(--hint);margin-top:14px;}
+.otp-icon{font-size:2.2rem;margin-bottom:.75rem;}
 .otp-digits{display:flex;gap:8px;justify-content:center;margin-bottom:1rem;}
 .otp-digit{width:44px;height:52px;border:2px solid var(--border2);border-radius:10px;font-size:1.4rem;font-weight:700;font-family:'Poppins',sans-serif;text-align:center;background:var(--bg);color:var(--ua-dark);outline:none;transition:border-color .15s;}
 .otp-digit:focus{border-color:var(--ua-cyan);box-shadow:0 0 0 3px rgba(0,196,223,.2);}
 .otp-digit.filled{border-color:var(--ua-blue);}
 .otp-digit.error{border-color:var(--red);background:var(--red-bg);}
-.otp-msg{font-size:12px;min-height:18px;margin-bottom:.75rem;}
-.otp-msg.error{color:var(--red);}
-.btn-verify{width:100%;padding:11px;border-radius:var(--r);background:var(--ua-blue);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,82,143,.3);margin-bottom:12px;}
-.btn-verify:hover:not(:disabled){background:var(--accent-hover);}
-.btn-verify:disabled{opacity:.5;cursor:not-allowed;}
-.otp-footer{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
+.otp-email-display{font-weight:600;color:var(--ua-blue);font-size:13px;margin-bottom:1.25rem;display:block;}
+.otp-footer-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:10px;}
 .otp-link{background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;color:var(--ua-blue);cursor:pointer;text-decoration:underline;}
-.otp-link:hover{color:var(--accent-hover);}
-.otp-timer{font-size:11px;color:var(--hint);}
 
 /* MAIN */
+#app-main{display:none;}
 main{max-width:1160px;margin:0 auto;padding:2.5rem 2rem;}
 .panel-head{margin-bottom:2rem;}
 .panel-head h1{font-size:1.65rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.3rem;color:var(--ua-dark);}
@@ -134,8 +119,8 @@ canvas{width:100%;height:auto;display:none;border-radius:calc(var(--rlg) - 2px);
 .step.done .step-bubble::after{content:'✓';}
 .step.done .step-label{color:var(--ua-teal);}
 .step.done+.step-line,.step-line.done{background:var(--ua-teal);}
-@keyframes stepPop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
 .step.active .step-bubble,.step.done .step-bubble{animation:stepPop .35s ease;}
+@keyframes stepPop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
 .btn{width:100%;padding:11px 16px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:7px;border:none;}
 .btn-primary{background:var(--ua-blue);color:#fff;box-shadow:0 2px 8px rgba(0,82,143,.25);}
 .btn-primary:hover:not(:disabled){background:var(--accent-hover);}
@@ -160,19 +145,7 @@ canvas{width:100%;height:auto;display:none;border-radius:calc(var(--rlg) - 2px);
 .no-flyers .nf-icon{font-size:2.5rem;margin-bottom:.75rem;}
 .no-flyers h2{font-size:1.1rem;font-weight:700;color:var(--ua-dark);margin-bottom:.4rem;}
 .no-flyers p{font-size:12px;color:var(--muted);line-height:1.6;}
-footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;border-top:1px solid var(--border);margin-top:2rem;background:var(--surface);}
-@media(max-width:720px){
-  .layout{grid-template-columns:1fr;}
-  main{padding:1rem;}
-  .ua-bar-inner,.hinner{padding:0 1rem;}
-  .stepper{padding:.9rem 1rem;}
-  .step-bubble{width:26px;height:26px;font-size:11px;}
-  .step-label{font-size:10px;margin-left:5px;}
-  .canvas-outer{min-height:200px;}
-  .otp-digit{width:38px;height:46px;font-size:1.2rem;}
-}
-
-/* ── MODAL AYUDA LOGO ── */
+/* HELP MODAL */
 #help-modal{position:fixed;inset:0;z-index:60;background:rgba(0,36,71,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}
 #help-modal.show{display:flex;}
 .help-card{background:#fff;border-radius:18px;padding:2rem;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto;}
@@ -190,37 +163,43 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 .help-spec-row:last-child{border-bottom:none;}
 .help-spec-row span:first-child{color:var(--muted);}
 .help-spec-row span:last-child{font-weight:600;color:var(--ua-dark);}
-.help-preview{background:var(--surface2);border-radius:var(--r);padding:1rem;margin-bottom:1.5rem;text-align:center;}
-.help-preview-label{font-size:10px;color:var(--hint);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;}
-.help-logo-example{width:250px;height:150px;border:2px dashed var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin:0 auto;background:#fff;font-size:11px;color:var(--hint);flex-direction:column;gap:6px;}
-.help-logo-dims{font-size:10px;color:var(--hint);margin-top:6px;}
 .btn-help-close{width:100%;padding:10px;border-radius:var(--r);background:var(--ua-blue);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .18s;}
 .btn-help-close:hover{background:var(--accent-hover);}
-.btn-help-trigger{background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;color:var(--ua-blue);cursor:pointer;text-decoration:underline;display:block;text-align:center;margin-top:8px;padding:4px;transition:opacity .15s;}
-.btn-help-trigger:hover{opacity:.7;}
+.btn-help-trigger{background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;color:var(--ua-blue);cursor:pointer;text-decoration:underline;display:block;text-align:center;margin-top:8px;padding:4px;}
+footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;border-top:1px solid var(--border);margin-top:2rem;background:var(--surface);}
+@media(max-width:720px){
+  .layout{grid-template-columns:1fr;}
+  main{padding:1rem;}
+  .ua-bar-inner,.hinner{padding:0 1rem;}
+  .stepper{padding:.9rem 1rem;}
+  .step-bubble{width:26px;height:26px;font-size:11px;}
+  .step-label{font-size:10px;margin-left:5px;}
+  .canvas-outer{min-height:200px;}
+  .otp-digit{width:38px;height:46px;font-size:1.2rem;}
+}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="login-screen" style="display:none">
-  <div class="login-card">
+<div id="login-screen">
+  <div class="auth-card">
     <h2>Bienvenido</h2>
-    <p class="login-sub">Generador de<br><b id="login-country-name">Creador de cobranding</b></p>
+    <p class="auth-sub"><b>Creador de cobranding</b></p>
     <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Ingresá con tu email corporativo<br><b style="color:var(--ua-blue)">nombre.apellido@universal-assistance.com</b></p>
-    <input class="login-input" id="login-email" type="email" placeholder="nombre.apellido@universal-assistance.com" maxlength="100"/>
-    <button class="btn-login" id="btn-send-otp">Ingresar</button>
-    <div class="login-msg" id="login-msg"></div>
-    <p style="font-size:11px;color:var(--hint);margin-top:12px">Solo para uso interno de Universal Assistance.</p>
+    <input class="auth-input" id="login-email" type="email" placeholder="nombre.apellido@universal-assistance.com" maxlength="100"/>
+    <button class="auth-btn" id="btn-send-otp">Ingresar</button>
+    <div class="auth-msg" id="login-msg"></div>
+    <p class="auth-footer">Solo para uso interno de Universal Assistance.</p>
   </div>
 </div>
 
 <!-- OTP -->
-<div id="otp-screen" style="display:none">
-  <div class="otp-card">
+<div id="otp-screen">
+  <div class="auth-card">
     <div class="otp-icon">📬</div>
     <h2>Ingresá el código</h2>
-    <p>Enviamos un código de 6 dígitos a<br><span class="otp-email-display" id="otp-email-display"></span></p>
+    <span class="otp-email-display" id="otp-email-display"></span>
     <div class="otp-digits">
       <input class="otp-digit" id="d0" type="text" maxlength="1" inputmode="numeric"/>
       <input class="otp-digit" id="d1" type="text" maxlength="1" inputmode="numeric"/>
@@ -229,12 +208,12 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
       <input class="otp-digit" id="d4" type="text" maxlength="1" inputmode="numeric"/>
       <input class="otp-digit" id="d5" type="text" maxlength="1" inputmode="numeric"/>
     </div>
-    <div class="otp-msg" id="otp-msg"></div>
-    <button class="btn-verify" id="btn-verify" disabled>Verificar código</button>
-    <div class="otp-footer">
+    <div class="auth-msg" id="otp-msg"></div>
+    <button class="auth-btn" id="btn-verify" disabled>Verificar</button>
+    <div class="otp-footer-row">
       <button class="otp-link" id="btn-back-login">← Cambiar email</button>
-      <span class="otp-timer" id="otp-timer"></span>
-      <button class="otp-link" id="btn-resend" disabled>Reenviar código</button>
+      <span id="otp-timer" style="font-size:11px;color:var(--hint)"></span>
+      <button class="otp-link" id="btn-resend" disabled>Reenviar</button>
     </div>
   </div>
 </div>
@@ -246,6 +225,29 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
     <div class="success-title">¡Flyer descargado!</div>
     <div class="success-sub">Tu flyer con cobranding está listo.<br>Podés encontrarlo en tu carpeta de descargas.</div>
     <button class="success-btn" onclick="closeSuccess()">Descargar otro</button>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div id="help-modal">
+  <div class="help-card">
+    <h2>¿Cómo preparo mi logo?</h2>
+    <p class="help-sub">Seguí estos pasos para que tu logo quede perfecto en el flyer.</p>
+    <div class="help-specs">
+      <div class="help-specs-title">Especificaciones requeridas</div>
+      <div class="help-spec-row"><span>Formato</span><span>PNG o JPG</span></div>
+      <div class="help-spec-row"><span>Ancho</span><span>250 px</span></div>
+      <div class="help-spec-row"><span>Alto</span><span>150 px</span></div>
+      <div class="help-spec-row"><span>Fondo</span><span>Blanco o transparente</span></div>
+    </div>
+    <div class="help-steps">
+      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-text"><b>Abrí tu logo en PowerPoint</b><br>Insertá el logo como imagen en una diapositiva en blanco.</div></div>
+      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-text"><b>Ajustá el tamaño de la diapositiva</b><br>Diseño → Tamaño de diapositiva → Personalizado → <code>8,82 cm</code> × <code>5,29 cm</code>.</div></div>
+      <div class="help-step"><div class="help-step-num">3</div><div class="help-step-text"><b>Centrá tu logo</b><br>Ajustá el logo para que ocupe toda la diapositiva, con fondo blanco.</div></div>
+      <div class="help-step"><div class="help-step-num">4</div><div class="help-step-text"><b>Exportá como PNG</b><br>Archivo → Exportar → Cambiar tipo de archivo → PNG.</div></div>
+      <div class="help-step"><div class="help-step-num">5</div><div class="help-step-text"><b>¡Listo!</b> Subí el archivo PNG al compositor.</div></div>
+    </div>
+    <button class="btn-help-close" onclick="document.getElementById('help-modal').classList.remove('show')">Entendido</button>
   </div>
 </div>
 
@@ -266,87 +268,83 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 <header>
   <div class="hinner">
     <div class="brand"><span class="brand-dot"></span>Creador de cobranding</div>
-    <div class="country-badge" id="country-badge">...</div>
+    <div class="country-badge" id="country-badge"></div>
   </div>
 </header>
 
-<main id="app-main" style="display:none">
-  <div id="error-banner">
-    <span class="err-icon">⚠️</span>
-    <div class="err-text"><b>No se pudieron cargar los flyers</b>Revisá tu conexión e intentá de nuevo.</div>
-    <button class="err-retry" onclick="retryInit()">Reintentar</button>
-  </div>
-  <div id="main-content" style="display:none">
-    <div class="panel-head">
-      <h1 id="page-title">Agregá tu logo al flyer</h1>
-      <p>Subí tu logo, previsualizá el resultado y descargalo listo para usar.</p>
+<div id="app-main">
+  <main>
+    <div id="error-banner">
+      <span class="err-icon">⚠️</span>
+      <div class="err-text"><b>No se pudieron cargar los flyers</b>Revisá tu conexión e intentá de nuevo.</div>
+      <button class="err-retry" onclick="retryInit()">Reintentar</button>
     </div>
-    <div class="stepper" id="stepper">
-      <div class="step active" id="step-1"><div class="step-bubble">1</div><span class="step-label">Subí tu logo</span></div>
-      <div class="step-line" id="line-1"></div>
-      <div class="step" id="step-2"><div class="step-bubble">2</div><span class="step-label">Vista previa</span></div>
-      <div class="step-line" id="line-2"></div>
-      <div class="step" id="step-3"><div class="step-bubble">3</div><span class="step-label">Descargá</span></div>
-    </div>
-    <div class="layout">
-      <div>
-        <div class="flyer-selector" id="flyer-selector"></div>
-        <div class="canvas-outer">
-          <div class="canvas-loading" id="ph-loading"><div class="canvas-spinner"></div><span>Cargando flyers...</span></div>
-          <div class="ph" id="ph-user"><div class="ph-icon">🖼️</div><p>Subí tu logo para ver<br>la vista previa en tiempo real</p></div>
-          <canvas id="preview-canvas"></canvas>
+    <div id="main-content" style="display:none">
+      <div class="panel-head">
+        <h1 id="page-title">Agregá tu logo al flyer</h1>
+        <p>Subí tu logo, previsualizá el resultado y descargalo listo para usar.</p>
+      </div>
+      <div class="stepper" id="stepper">
+        <div class="step active" id="step-1"><div class="step-bubble">1</div><span class="step-label">Subí tu logo</span></div>
+        <div class="step-line" id="line-1"></div>
+        <div class="step" id="step-2"><div class="step-bubble">2</div><span class="step-label">Vista previa</span></div>
+        <div class="step-line" id="line-2"></div>
+        <div class="step" id="step-3"><div class="step-bubble">3</div><span class="step-label">Descargá</span></div>
+      </div>
+      <div class="layout">
+        <div>
+          <div class="flyer-selector" id="flyer-selector"></div>
+          <div class="canvas-outer">
+            <div class="canvas-loading" id="ph-loading"><div class="canvas-spinner"></div><span>Cargando flyers...</span></div>
+            <div class="ph" id="ph-user"><div class="ph-icon">🖼️</div><p>Subí tu logo para ver<br>la vista previa en tiempo real</p></div>
+            <canvas id="preview-canvas"></canvas>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="card">
+            <div class="card-label">Requisitos del logo</div>
+            <div class="info-box">
+              Para garantizar la calidad del cobranding, tu logo debe cumplir estas condiciones.<br><br>
+              <span class="req">⚠ Obligatorio:</span><br>
+              · Formato: <b>PNG o JPG</b><br>
+              · Tamaño exacto: <b>250 × 150 px</b><br>
+              · Fondo: <b>blanco o transparente</b>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-label">Tu logo</div>
+            <div class="drop" id="logo-drop">
+              <input type="file" id="logo-input" accept="image/png,image/jpeg"/>
+              <div class="drop-ico">↑</div>
+              <p>Arrastrá o hacé clic para subir</p>
+            </div>
+            <div class="file-ok" id="logo-ok">✓ <span id="logo-fname"></span></div>
+            <div class="val-box" id="val-box" style="display:none">
+              <div class="val-item pending" id="val-format"><div class="val-icon">?</div><div class="val-text"><b>Formato</b><span>PNG o JPG</span></div></div>
+              <div class="val-item pending" id="val-size"><div class="val-icon">?</div><div class="val-text"><b>Tamaño exacto</b><span id="val-size-detail">250×150 px</span></div></div>
+              <div class="val-item pending" id="val-bg"><div class="val-icon">?</div><div class="val-text"><b>Fondo</b><span>Blanco o transparente</span></div></div>
+            </div>
+            <button class="btn-help-trigger" onclick="document.getElementById('help-modal').classList.add('show')">¿Cómo preparo mi logo?</button>
+          </div>
+          <div class="card">
+            <button class="btn btn-primary" id="btn-dl" disabled>↓ Descargar flyer</button>
+          </div>
         </div>
       </div>
-      <div class="sidebar">
-        <div class="card">
-          <div class="card-label">Requisitos del logo</div>
-          <div class="info-box">
-            Para garantizar la calidad del cobranding, tu logo debe cumplir estas condiciones.<br><br>
-            <span class="req">⚠ Obligatorio:</span><br>
-            · Formato: <b>PNG o JPG</b><br>
-            · Tamaño exacto: <b>250 × 150 px</b><br>
-            · Fondo: <b>blanco o transparente</b>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-label">Tu logo</div>
-          <div class="drop" id="logo-drop">
-            <input type="file" id="logo-input" accept="image/png,image/jpeg"/>
-            <div class="drop-ico">↑</div>
-            <p>Arrastrá o hacé clic para subir</p>
-          </div>
-          <div class="file-ok" id="logo-ok">✓ <span id="logo-fname"></span></div>
-          <button class="btn-help-trigger" onclick="document.getElementById('help-modal').classList.add('show')">¿Cómo preparo mi logo?</button>
-          <div class="val-box" id="val-box" style="display:none">
-            <div class="val-item pending" id="val-format"><div class="val-icon">?</div><div class="val-text"><b>Formato</b><span>PNG o JPG</span></div></div>
-            <div class="val-item pending" id="val-size"><div class="val-icon">?</div><div class="val-text"><b>Tamaño exacto</b><span id="val-size-detail">250×150 px</span></div></div>
-            <div class="val-item pending" id="val-bg"><div class="val-icon">?</div><div class="val-text"><b>Fondo</b><span>Blanco o transparente</span></div></div>
-          </div>
-        </div>
-        <div class="card">
-          <button class="btn btn-primary" id="btn-dl" disabled>↓ Descargar flyer</button>
-        </div>
+    </div>
+    <div id="no-flyers-msg" style="display:none">
+      <div class="no-flyers">
+        <div class="nf-icon">🗺️</div>
+        <h2>Sin flyers disponibles</h2>
+        <p>Todavía no hay flyers asignados a este país.<br>Contactá al administrador.</p>
       </div>
     </div>
-  </div>
-  <div id="no-flyers-msg" style="display:none">
-    <div class="no-flyers">
-      <div class="nf-icon">🗺️</div>
-      <h2>Sin flyers disponibles</h2>
-      <p>Todavía no hay flyers asignados a este país.<br>Contactá al administrador.</p>
-    </div>
-  </div>
-</main>
-
-<footer>Esta herramienta se encuentra en fase de pruebas. · v1.7</footer>
+  </main>
+  <footer>Esta herramienta se encuentra en fase de pruebas. · v1.7</footer>
+</div>
 
 <script>
-// EmailJS init — must be outside ES module
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init('8xIdtkF2d1xsLBM2_');
-  }
-});
+emailjs.init('8xIdtkF2d1xsLBM2_');
 window._sendOtpEmail = function(toEmail, otpCode) {
   const name = toEmail.split('@')[0];
   return emailjs.send('service_m8ftgar', 'template_h7zpuoa', {
@@ -356,6 +354,7 @@ window._sendOtpEmail = function(toEmail, otpCode) {
   });
 };
 </script>
+
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, collection, query, where, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
@@ -369,82 +368,82 @@ const firebaseConfig = {
   appId: "1:484062727024:web:a23d03d5c28829dacb9db5"
 };
 
-const PAISES       = {'argentina': 'Argentina', 'bolivia': 'Bolivia', 'brasil': 'Brasil', 'chile': 'Chile', 'colombia': 'Colombia', 'costa_rica': 'Costa Rica', 'ecuador': 'Ecuador', 'el_salvador': 'El Salvador', 'guatemala': 'Guatemala', 'honduras': 'Honduras', 'mexico': 'México', 'nicaragua': 'Nicaragua', 'panama': 'Panamá', 'paraguay': 'Paraguay', 'peru': 'Perú', 'dominicana': 'Rep. Dominicana', 'uruguay': 'Uruguay'};
-const FLAGS        = {'argentina': '🇦🇷', 'bolivia': '🇧🇴', 'brasil': '🇧🇷', 'chile': '🇨🇱', 'colombia': '🇨🇴', 'costa_rica': '🇨🇷', 'ecuador': '🇪🇨', 'el_salvador': '🇸🇻', 'guatemala': '🇬🇹', 'honduras': '🇭🇳', 'mexico': '🇲🇽', 'nicaragua': '🇳🇮', 'panama': '🇵🇦', 'paraguay': '🇵🇾', 'peru': '🇵🇪', 'dominicana': '🇩🇴', 'uruguay': '🇺🇾'};
+const PAISES = {"argentina": "Argentina", "bolivia": "Bolivia", "chile": "Chile", "colombia": "Colombia", "costa_rica": "Costa Rica", "ecuador": "Ecuador", "el_salvador": "El Salvador", "guatemala": "Guatemala", "honduras": "Honduras", "mexico": "México", "nicaragua": "Nicaragua", "panama": "Panamá", "paraguay": "Paraguay", "peru": "Perú", "dominicana": "Rep. Dominicana", "uruguay": "Uruguay"};
+const FLAGS  = {"argentina": "ar", "bolivia": "bo", "chile": "cl", "colombia": "co", "costa_rica": "cr", "ecuador": "ec", "el_salvador": "sv", "guatemala": "gt", "honduras": "hn", "mexico": "mx", "nicaragua": "ni", "panama": "pa", "paraguay": "py", "peru": "pe", "dominicana": "do", "uruguay": "uy"};
 const LOGO_W = 250, LOGO_H = 150;
 const ALLOWED_DOMAIN = 'universal-assistance.com';
-const EJS_PUBLIC   = '8xIdtkF2d1xsLBM2_';
-const EJS_SERVICE  = 'service_m8ftgar';
-const EJS_TEMPLATE = 'template_h7zpuoa';
-const OTP_TTL_MS   = 10 * 60 * 1000; // 10 minutos
-const SESSION_KEY  = 'ua-session';
+const ALLOWED_EMAILS = ['kevinszalai@hotmail.com'];
+const SESSION_KEY    = 'ua-session';
+const OTP_TTL_MS     = 10 * 60 * 1000;
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
-
 
 let flyerImg=null, logoImg=null, hqFlyerImg=null;
 let flyers=[], activeFlyerIdx=0;
 let cfg={px:0.88,py:0.844,lw:250,lh:150};
 let currentEmail='', otpCode='', otpExpiry=0, timerInterval=null;
 
+// ── COUNTRY ───────────────────────────────────────────────────
 const params   = new URLSearchParams(window.location.search);
-const paisKey  = params.get('pais')||'';
-const paisName = PAISES[paisKey]||paisKey;
-const paisFlag = FLAGS[paisKey]||'🌎';
+const paisKey  = params.get('pais') || '';
+const paisName = PAISES[paisKey] || paisKey;
+const paisFlag = FLAGS[paisKey]  || '';
 
 document.title = `Cobranding ${paisName} · Universal Assistance`;
-document.getElementById('page-title').textContent   = `Agregá tu logo — ${paisFlag} ${paisName}`;
-document.getElementById('country-badge').textContent = `${paisFlag} ${paisName}`;
-// flag removed from login
+document.getElementById('country-badge').textContent = paisFlag ? `${paisFlag} ${paisName}` : '';
+document.getElementById('page-title').textContent    = `Agregá tu logo — ${paisName}`;
 
 // ── SESSION ───────────────────────────────────────────────────
+const SESSION_KEY_NAME = SESSION_KEY;
 function getSession() {
   try {
-    const s = JSON.parse(localStorage.getItem(SESSION_KEY)||'null');
+    const s = JSON.parse(localStorage.getItem(SESSION_KEY_NAME) || 'null');
     if (s && s.email && s.expiry > Date.now()) return s;
   } catch(_) {}
   return null;
 }
 function saveSession(email) {
-  localStorage.setItem(SESSION_KEY, JSON.stringify({
-    email, expiry: Date.now() + 90*24*60*60*1000 // 8 horas
+  localStorage.setItem(SESSION_KEY_NAME, JSON.stringify({
+    email, expiry: Date.now() + 90*24*60*60*1000
   }));
 }
-function clearSession() {
-  localStorage.removeItem(SESSION_KEY);
-}
+function clearSession() { localStorage.removeItem(SESSION_KEY_NAME); }
 
-// ── INIT ─────────────────────────────────────────────────────
+// ── BOOT ──────────────────────────────────────────────────────
 const session = getSession();
 if (session) {
-  showApp(session.email);
+  currentEmail = session.email;
+  showApp();
 } else {
   document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app-main').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('otp-screen').style.display   = 'none';
+  document.getElementById('app-main').style.display     = 'block';
+  document.getElementById('user-info-bar').style.display = 'flex';
+  document.getElementById('user-email-bar').textContent  = currentEmail;
+  init();
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────
 document.getElementById('btn-send-otp').addEventListener('click', sendOtp);
-document.getElementById('login-email').addEventListener('keydown', e=>{ if(e.key==='Enter') sendOtp(); });
+document.getElementById('login-email').addEventListener('keydown', e => { if(e.key==='Enter') sendOtp(); });
 
 async function sendOtp() {
   let email = document.getElementById('login-email').value.trim().toLowerCase();
-  // Auto-completar dominio si no tiene @
-  if (email && !email.includes('@')) email = email + '@universal-assistance.com';
-  // Actualizar el campo visualmente
+  if (email && !email.includes('@')) email = email + '@' + ALLOWED_DOMAIN;
   document.getElementById('login-email').value = email;
-  const msg   = document.getElementById('login-msg');
-  const btn   = document.getElementById('btn-send-otp');
-  if (!email) { msg.className='login-msg error'; msg.textContent='Ingresá tu email.'; return; }
-  const ALLOWED_EMAILS = ['kevinszalai@hotmail.com'];
-  if (!email.endsWith('@'+ALLOWED_DOMAIN) && !ALLOWED_EMAILS.includes(email.toLowerCase())) {
-    msg.className='login-msg error';
-    msg.textContent=`Solo se permiten emails @${ALLOWED_DOMAIN}`;
-    return;
+  const msg = document.getElementById('login-msg');
+  const btn = document.getElementById('btn-send-otp');
+  if (!email) { msg.className='auth-msg error'; msg.textContent='Ingresá tu email.'; return; }
+  if (!email.endsWith('@'+ALLOWED_DOMAIN) && !ALLOWED_EMAILS.includes(email)) {
+    msg.className='auth-msg error'; msg.textContent=`Solo emails @${ALLOWED_DOMAIN}`; return;
   }
-  btn.disabled=true; btn.textContent='Enviando...'; msg.textContent='';
-  // Generate OTP
+  btn.disabled=true; btn.innerHTML='<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px"></span>Enviando...';
+  msg.textContent='';
   otpCode   = String(Math.floor(100000+Math.random()*900000));
   otpExpiry = Date.now() + OTP_TTL_MS;
   currentEmail = email;
@@ -452,143 +451,126 @@ async function sendOtp() {
     await window._sendOtpEmail(email, otpCode);
     showOtpScreen(email);
   } catch(e) {
-    console.error(e);
-    msg.className='login-msg error';
-    msg.textContent='Error al enviar el código. Intentá de nuevo.';
-    btn.disabled=false; btn.textContent='Enviar código';
+    console.error('EmailJS error:', e);
+    msg.className='auth-msg error'; msg.textContent='Error al enviar el código. Intentá de nuevo.';
+    btn.disabled=false; btn.textContent='Ingresar';
   }
 }
 
 function showOtpScreen(email) {
-  document.getElementById('login-screen').style.display='none';
-  const otpScr = document.getElementById('otp-screen');
-  otpScr.style.display='flex';
-  document.getElementById('otp-email-display').textContent=email;
-  document.getElementById('otp-msg').textContent='';
-  otpDigits.forEach(d=>{ d.value=''; d.className='otp-digit'; });
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('otp-screen').style.display   = 'flex';
+  document.getElementById('otp-email-display').textContent = email;
+  document.getElementById('otp-msg').textContent = '';
+  otpDigits.forEach(d => { d.value=''; d.className='otp-digit'; });
   otpDigits[0].focus();
   startTimer();
 }
 
-// OTP digits
-const otpDigits = [0,1,2,3,4,5].map(i=>document.getElementById('d'+i));
-otpDigits.forEach((inp,i)=>{
-  inp.addEventListener('input',()=>{
-    inp.value=inp.value.replace(/\D/g,'').slice(-1);
-    inp.classList.toggle('filled',!!inp.value);
-    if(inp.value && i<5) otpDigits[i+1].focus();
-    document.getElementById('btn-verify').disabled=!otpDigits.every(d=>d.value.length===1);
+const otpDigits = [0,1,2,3,4,5].map(i => document.getElementById('d'+i));
+otpDigits.forEach((inp,i) => {
+  inp.addEventListener('input', () => {
+    inp.value = inp.value.replace(/\D/g,'').slice(-1);
+    inp.classList.toggle('filled', !!inp.value);
+    if (inp.value && i<5) otpDigits[i+1].focus();
+    document.getElementById('btn-verify').disabled = !otpDigits.every(d=>d.value.length===1);
   });
-  inp.addEventListener('keydown',e=>{
-    if(e.key==='Backspace'&&!inp.value&&i>0){otpDigits[i-1].focus();otpDigits[i-1].value='';otpDigits[i-1].classList.remove('filled');}
-    if(e.key==='Enter'&&otpDigits.every(d=>d.value.length===1))verifyOtp();
+  inp.addEventListener('keydown', e => {
+    if (e.key==='Backspace' && !inp.value && i>0) { otpDigits[i-1].focus(); otpDigits[i-1].value=''; otpDigits[i-1].classList.remove('filled'); }
+    if (e.key==='Enter' && otpDigits.every(d=>d.value.length===1)) verifyOtp();
   });
-  inp.addEventListener('paste',e=>{
-    const pasted=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-    if(pasted.length===6){
-      pasted.split('').forEach((ch,j)=>{otpDigits[j].value=ch;otpDigits[j].classList.add('filled');});
-      document.getElementById('btn-verify').disabled=false;
-      otpDigits[5].focus();
-    }
+  inp.addEventListener('paste', e => {
+    const p=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
+    if(p.length===6){p.split('').forEach((ch,j)=>{otpDigits[j].value=ch;otpDigits[j].classList.add('filled');});document.getElementById('btn-verify').disabled=false;otpDigits[5].focus();}
     e.preventDefault();
   });
 });
 
 document.getElementById('btn-verify').addEventListener('click', verifyOtp);
-
 function verifyOtp() {
   const entered = otpDigits.map(d=>d.value).join('');
   const msg = document.getElementById('otp-msg');
-  if (Date.now() > otpExpiry) {
-    msg.className='otp-msg error'; msg.textContent='El código expiró. Pedí uno nuevo.';
-    otpDigits.forEach(d=>d.classList.add('error')); return;
-  }
+  if (Date.now() > otpExpiry) { msg.className='auth-msg error'; msg.textContent='El código expiró. Pedí uno nuevo.'; otpDigits.forEach(d=>d.classList.add('error')); return; }
   if (entered !== otpCode) {
-    msg.className='otp-msg error'; msg.textContent='Código incorrecto. Intentá de nuevo.';
+    msg.className='auth-msg error'; msg.textContent='Código incorrecto. Intentá de nuevo.';
     otpDigits.forEach(d=>d.classList.add('error'));
-    setTimeout(()=>{ otpDigits.forEach(d=>{d.value='';d.className='otp-digit';});otpDigits[0].focus();document.getElementById('btn-verify').disabled=true;},1200);
+    setTimeout(()=>{otpDigits.forEach(d=>{d.value='';d.className='otp-digit';});otpDigits[0].focus();document.getElementById('btn-verify').disabled=true;},1200);
     return;
   }
-  clearInterval(timerInterval);
   saveSession(currentEmail);
-  showApp(currentEmail);
+  showApp();
 }
 
-document.getElementById('btn-back-login').addEventListener('click',()=>{
+document.getElementById('btn-back-login').addEventListener('click', () => {
   clearInterval(timerInterval);
   document.getElementById('otp-screen').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('btn-send-otp').disabled=false;
-  document.getElementById('btn-send-otp').textContent='Enviar código';
+  document.getElementById('btn-send-otp').textContent='Ingresar';
 });
-
-document.getElementById('btn-resend').addEventListener('click',()=>{
+document.getElementById('btn-resend').addEventListener('click', () => {
   clearInterval(timerInterval);
   document.getElementById('otp-screen').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('btn-send-otp').disabled=false;
-  document.getElementById('btn-send-otp').textContent='Enviar código';
-  document.getElementById('login-msg').textContent='';
+  document.getElementById('btn-send-otp').textContent='Ingresar';
 });
-
-function startTimer() {
-  const resendBtn=document.getElementById('btn-resend');
-  const timerEl=document.getElementById('otp-timer');
-  resendBtn.disabled=true;
-  let secs=600; // 10 min
-  timerInterval=setInterval(()=>{
-    secs--;
-    const m=Math.floor(secs/60), s=secs%60;
-    timerEl.textContent=`${m}:${s.toString().padStart(2,'0')}`;
-    if(secs<=0){clearInterval(timerInterval);timerEl.textContent='Expirado';resendBtn.disabled=false;}
-    if(secs===540) resendBtn.disabled=false; // habilitar reenvío después de 1 min
-  },1000);
-}
-
-// ── APP ───────────────────────────────────────────────────────
-function showApp(email) {
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('otp-screen').style.display='none';
-  document.getElementById('app-main').style.display='block';
-  document.getElementById('user-info-bar').style.display='flex';
-  document.getElementById('user-email-bar').textContent=email;
-  init();
-}
-
-document.getElementById('btn-logout').addEventListener('click',()=>{
+document.getElementById('btn-logout').addEventListener('click', () => {
   clearSession();
   document.getElementById('app-main').style.display='none';
   document.getElementById('user-info-bar').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('login-email').value='';
   document.getElementById('login-msg').textContent='';
+  document.getElementById('btn-send-otp').disabled=false;
+  document.getElementById('btn-send-otp').textContent='Ingresar';
   flyerImg=null;logoImg=null;flyers=[];
 });
 
-async function init() {
-  if(!paisKey){showError('No se especificó un país válido.');return;}
-  try{
-    console.log('Buscando flyers para país:', paisKey);
-    const q=query(collection(db,'flyers'),where('paises','array-contains',paisKey));
-    const snap=await getDocs(q);
-    console.log('Flyers encontrados:', snap.size);
-    if(snap.empty){document.getElementById('ph-loading').style.display='none';document.getElementById('app-main').style.display='block';document.getElementById('no-flyers-msg').style.display='block';return;}
-    flyers=snap.docs.map(d=>({id:d.id,...d.data()}));
-    activeFlyerIdx=0;syncCfg();
-    document.getElementById('main-content').style.display='block';
-    loadActiveFlyer();renderFlyerSelector();
-  }catch(e){console.warn(e);showError();}
+function startTimer() {
+  const resendBtn=document.getElementById('btn-resend');
+  const timerEl=document.getElementById('otp-timer');
+  resendBtn.disabled=true;
+  let secs=600;
+  timerInterval=setInterval(()=>{
+    secs--;
+    const m=Math.floor(secs/60),s=secs%60;
+    timerEl.textContent=`${m}:${s.toString().padStart(2,'0')}`;
+    if(secs<=0){clearInterval(timerInterval);timerEl.textContent='Expirado';resendBtn.disabled=false;}
+    if(secs===540) resendBtn.disabled=false;
+  },1000);
 }
 
-function syncCfg(){const f=flyers[activeFlyerIdx];if(f)cfg={px:f.px??0.88,py:f.py??0.844,lw:f.lw??250,lh:f.lh??150};}
-function loadActiveFlyer(){
-  const f=flyers[activeFlyerIdx];if(!f)return;
+// ── APP INIT ──────────────────────────────────────────────────
+async function init() {
+  if (!paisKey) { showError('No se especificó un país válido.'); return; }
+  try {
+    const q = query(collection(db,'flyers'), where('paises','array-contains',paisKey));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      document.getElementById('ph-loading').style.display='none';
+      document.getElementById('no-flyers-msg').style.display='block';
+      return;
+    }
+    flyers = snap.docs.map(d => ({id:d.id,...d.data()}));
+    activeFlyerIdx=0; syncCfg();
+    document.getElementById('main-content').style.display='block';
+    loadActiveFlyer(); renderFlyerSelector();
+  } catch(e) {
+    console.error('Error cargando flyers:', e);
+    showError();
+  }
+}
+
+function syncCfg() { const f=flyers[activeFlyerIdx]; if(f) cfg={px:f.px??0.88,py:f.py??0.844,lw:f.lw??250,lh:f.lh??150}; }
+function loadActiveFlyer() {
+  const f=flyers[activeFlyerIdx]; if(!f) return;
   document.getElementById('ph-loading').style.display='flex';
   document.getElementById('preview-canvas').style.display='none';
   document.getElementById('ph-user').style.display='none';
-  loadImgFromSrc(f.b64,img=>{flyerImg=img;hqFlyerImg=img;document.getElementById('ph-loading').style.display='none';if(logoImg)renderPreview();else showFlyerPreview();});
+  loadImgFromSrc(f.b64, img=>{flyerImg=img;hqFlyerImg=img;document.getElementById('ph-loading').style.display='none';if(logoImg)renderPreview();else showFlyerPreview();});
 }
-function renderFlyerSelector(){
+function renderFlyerSelector() {
   const sel=document.getElementById('flyer-selector');
   if(flyers.length<=1){sel.innerHTML='';return;}
   sel.innerHTML=flyers.map((f,i)=>`<div class="flyer-thumb ${i===activeFlyerIdx?'active':''}" onclick="window._selectFlyer(${i})">${i===0?'<div class="ft-badge">Principal</div>':''}<img src="${f.b64}" alt="${f.name||''}"/><div class="ft-label">${f.name||'Flyer '+(i+1)}</div></div>`).join('');
@@ -597,13 +579,12 @@ window._selectFlyer=function(idx){activeFlyerIdx=idx;syncCfg();logoImg=null;docu
 function showFlyerPreview(){document.getElementById('ph-loading').style.display='none';document.getElementById('ph-user').style.display='none';const cv=document.getElementById('preview-canvas');cv.style.display='block';drawComposite(cv,flyerImg,null,cfg);}
 function renderPreview(){if(!flyerImg)return;document.getElementById('ph-loading').style.display='none';document.getElementById('ph-user').style.display='none';const cv=document.getElementById('preview-canvas');cv.style.display='block';drawComposite(cv,flyerImg,logoImg,cfg);}
 function showError(msg){const b=document.getElementById('error-banner');if(msg)b.querySelector('b').textContent=msg;b.classList.add('show');}
-function hideError(){document.getElementById('error-banner').classList.remove('show');}
-window.retryInit=function(){hideError();init();};
+window.retryInit=function(){document.getElementById('error-banner').classList.remove('show');init();};
 
 // ── LOGO DROP ─────────────────────────────────────────────────
 setupDrop('logo-drop','logo-input',(f,img)=>{
-  const af=flyers[activeFlyerIdx];if(af)cfg={px:af.px??0.88,py:af.py??0.844,lw:af.lw??250,lh:af.lh??150};
-  const result=validateLogo(f,img);const allOk=result.format&&result.size&&result.bg;
+  const af=flyers[activeFlyerIdx]; if(af) cfg={px:af.px??0.88,py:af.py??0.844,lw:af.lw??250,lh:af.lh??150};
+  const result=validateLogo(f,img); const allOk=result.format&&result.size&&result.bg;
   updateChecklist(result);
   if(!allOk){logoImg=null;document.getElementById('logo-ok').style.display='none';document.getElementById('btn-dl').disabled=true;if(flyerImg)showFlyerPreview();else{document.getElementById('preview-canvas').style.display='none';document.getElementById('ph-user').style.display='flex';}setStep(1);return;}
   hideChecklist();document.getElementById('logo-ok').style.display='block';document.getElementById('logo-fname').textContent=f.name;
@@ -619,12 +600,9 @@ document.getElementById('btn-dl').addEventListener('click',async()=>{
   setStep(3);setTimeout(showSuccess,400);
   try{
     await addDoc(collection(db,'results'),{
-      name:currentEmail.split('@')[0]||'',
-      email:currentEmail,
-      pais:paisKey,
-      flyerName:flyers[activeFlyerIdx]?.name||'',
-      date:new Date().toISOString(),
-      thumb:resultB64,
+      name:currentEmail.split('@')[0]||'',email:currentEmail,
+      pais:paisKey,flyerName:flyers[activeFlyerIdx]?.name||'',
+      date:new Date().toISOString(),thumb:resultB64,
     });
   }catch(e){console.warn(e);}
 });
@@ -654,55 +632,5 @@ function setupDrop(zid,iid,cb){const z=document.getElementById(zid),inp=document
 function readImg(file,cb){const r=new FileReader();r.onload=e=>loadImgFromSrc(e.target.result,cb);r.readAsDataURL(file);}
 function loadImgFromSrc(src,cb){const i=new Image();i.crossOrigin='anonymous';i.onload=()=>cb(i);i.src=src;}
 </script>
-
-<!-- MODAL AYUDA LOGO -->
-<div id="help-modal">
-  <div class="help-card">
-    <h2>¿Cómo preparo mi logo?</h2>
-    <p class="help-sub">Seguí estos pasos para que tu logo quede perfecto en el flyer.</p>
-
-    <div class="help-specs">
-      <div class="help-specs-title">Especificaciones requeridas</div>
-      <div class="help-spec-row"><span>Formato</span><span>PNG o JPG</span></div>
-      <div class="help-spec-row"><span>Ancho</span><span>250 px</span></div>
-      <div class="help-spec-row"><span>Alto</span><span>150 px</span></div>
-      <div class="help-spec-row"><span>Fondo</span><span>Blanco o transparente</span></div>
-    </div>
-
-    <div class="help-preview">
-      <div class="help-preview-label">Así tiene que verse tu archivo</div>
-      <div class="help-logo-example">
-        <span style="font-size:2rem">🏷️</span>
-        <span>Tu logo aquí</span>
-      </div>
-      <div class="help-logo-dims">250 × 150 px · fondo blanco o transparente</div>
-    </div>
-
-    <div class="help-steps">
-      <div class="help-step">
-        <div class="help-step-num">1</div>
-        <div class="help-step-text"><b>Abrí tu logo en PowerPoint</b><br>Insertá el logo como imagen en una diapositiva en blanco.</div>
-      </div>
-      <div class="help-step">
-        <div class="help-step-num">2</div>
-        <div class="help-step-text"><b>Ajustá el tamaño de la diapositiva</b><br>Diseño → Tamaño de diapositiva → Personalizado → <code>8,82 cm</code> de ancho × <code>5,29 cm</code> de alto.</div>
-      </div>
-      <div class="help-step">
-        <div class="help-step-num">3</div>
-        <div class="help-step-text"><b>Centrá tu logo</b><br>Ajustá el logo para que ocupe toda la diapositiva, con fondo blanco.</div>
-      </div>
-      <div class="help-step">
-        <div class="help-step-num">4</div>
-        <div class="help-step-text"><b>Exportá como PNG</b><br>Archivo → Exportar → Cambiar tipo de archivo → PNG. Guardá solo esa diapositiva.</div>
-      </div>
-      <div class="help-step">
-        <div class="help-step-num">5</div>
-        <div class="help-step-text"><b>¡Listo!</b> Subí el archivo PNG al compositor y va a quedar perfecto.</div>
-      </div>
-    </div>
-
-    <button class="btn-help-close" onclick="document.getElementById('help-modal').classList.remove('show')">Entendido</button>
-  </div>
-</div>
 </body>
 </html>
