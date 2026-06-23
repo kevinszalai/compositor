@@ -224,6 +224,20 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:2rem;border-to
   <footer>Esta herramienta se encuentra en fase de pruebas. · v1.7</footer>
 </div>
 
+<script>
+// EmailJS init — must be outside ES module
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init('8xIdtkF2d1xsLBM2_');
+  }
+});
+window._sendOtpEmail = function(toEmail, otpCode) {
+  return emailjs.send('service_m8ftgar', 'template_h7zpuoa', {
+    to_email: toEmail,
+    otp_code: otpCode,
+  });
+};
+</script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
@@ -246,7 +260,6 @@ const SESSION_KEY = 'ua-home-session';
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
-emailjs.init(EJS_PUBLIC);
 
 let otpCode='', otpExpiry=0, currentEmail='', timerInterval=null;
 
@@ -290,7 +303,7 @@ async function sendOtp() {
   otpExpiry = Date.now() + OTP_TTL_MS;
   currentEmail = email;
   try {
-    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, { to_email: email, otp_code: otpCode });
+    await window._sendOtpEmail(email, otpCode);
     showOtpScreen(email);
   } catch(e) {
     msg.className='auth-msg error'; msg.textContent='Error al enviar el código. Intentá de nuevo.';

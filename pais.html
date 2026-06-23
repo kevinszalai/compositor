@@ -340,6 +340,20 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 
 <footer>Esta herramienta se encuentra en fase de pruebas. · v1.7</footer>
 
+<script>
+// EmailJS init — must be outside ES module
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init('8xIdtkF2d1xsLBM2_');
+  }
+});
+window._sendOtpEmail = function(toEmail, otpCode) {
+  return emailjs.send('service_m8ftgar', 'template_h7zpuoa', {
+    to_email: toEmail,
+    otp_code: otpCode,
+  });
+};
+</script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, collection, query, where, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
@@ -366,7 +380,6 @@ const SESSION_KEY  = 'ua-session';
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-emailjs.init(EJS_PUBLIC);
 
 let flyerImg=null, logoImg=null, hqFlyerImg=null;
 let flyers=[], activeFlyerIdx=0;
@@ -434,10 +447,7 @@ async function sendOtp() {
   otpExpiry = Date.now() + OTP_TTL_MS;
   currentEmail = email;
   try {
-    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
-      to_email: email,
-      otp_code: otpCode,
-    });
+    await window._sendOtpEmail(email, otpCode);
     showOtpScreen(email);
   } catch(e) {
     console.error(e);
