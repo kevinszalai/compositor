@@ -402,18 +402,18 @@ document.getElementById('login-title').textContent   = `Acceso · ${paisName}`;
 // ── SESSION ───────────────────────────────────────────────────
 function getSession() {
   try {
-    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
+    const s = JSON.parse(localStorage.getItem(SESSION_KEY)||'null');
     if (s && s.email && s.expiry > Date.now()) return s;
   } catch(_) {}
   return null;
 }
 function saveSession(email) {
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+  localStorage.setItem(SESSION_KEY, JSON.stringify({
     email, expiry: Date.now() + 8*60*60*1000 // 8 horas
   }));
 }
 function clearSession() {
-  sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_KEY);
 }
 
 // ── INIT ─────────────────────────────────────────────────────
