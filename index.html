@@ -258,7 +258,7 @@ const EJS_SERVICE  = 'service_m8ftgar';
 const EJS_TEMPLATE = 'template_h7zpuoa';
 const ALLOWED_DOMAIN = 'universal-assistance.com';
 const OTP_TTL_MS = 10 * 60 * 1000;
-const SESSION_KEY = 'ua-home-session';
+const SESSION_KEY = 'ua-session';
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
@@ -484,6 +484,8 @@ function verifyAdminPin() {
     // Show ALL countries regardless of access lists
     document.querySelectorAll('.country-card').forEach(card => card.style.display = 'flex');
     document.getElementById('grid-label').textContent = 'Todos los países';
+    // Save admin session so pais.html doesn't ask for login
+    saveSession('admin@universal-assistance.com');
   } else {
     document.getElementById('admin-pin-error').textContent = 'PIN incorrecto.';
     adminPinDigits.forEach(d => { d.value = ''; d.style.borderColor = 'var(--red)'; });
