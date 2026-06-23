@@ -171,6 +171,33 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
   .canvas-outer{min-height:200px;}
   .otp-digit{width:38px;height:46px;font-size:1.2rem;}
 }
+
+/* ── MODAL AYUDA LOGO ── */
+#help-modal{position:fixed;inset:0;z-index:60;background:rgba(0,36,71,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}
+#help-modal.show{display:flex;}
+.help-card{background:#fff;border-radius:18px;padding:2rem;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto;}
+.help-card h2{font-size:1.1rem;font-weight:700;color:var(--ua-dark);margin-bottom:.3rem;}
+.help-sub{font-size:12px;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;}
+.help-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:1.5rem;}
+.help-step{display:flex;gap:12px;align-items:flex-start;}
+.help-step-num{width:26px;height:26px;border-radius:50%;background:var(--ua-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.help-step-text{font-size:12px;color:var(--text);line-height:1.6;}
+.help-step-text b{color:var(--ua-dark);}
+.help-step-text code{background:var(--surface2);border-radius:4px;padding:1px 5px;font-family:monospace;font-size:11px;color:var(--ua-blue);}
+.help-specs{background:var(--ua-blue-lt);border-radius:var(--r);padding:12px 14px;margin-bottom:1.5rem;border-left:3px solid var(--ua-blue);}
+.help-specs-title{font-size:10px;font-weight:700;color:var(--ua-blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+.help-spec-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid var(--border);}
+.help-spec-row:last-child{border-bottom:none;}
+.help-spec-row span:first-child{color:var(--muted);}
+.help-spec-row span:last-child{font-weight:600;color:var(--ua-dark);}
+.help-preview{background:var(--surface2);border-radius:var(--r);padding:1rem;margin-bottom:1.5rem;text-align:center;}
+.help-preview-label{font-size:10px;color:var(--hint);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;}
+.help-logo-example{width:250px;height:150px;border:2px dashed var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin:0 auto;background:#fff;font-size:11px;color:var(--hint);flex-direction:column;gap:6px;}
+.help-logo-dims{font-size:10px;color:var(--hint);margin-top:6px;}
+.btn-help-close{width:100%;padding:10px;border-radius:var(--r);background:var(--ua-blue);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .18s;}
+.btn-help-close:hover{background:var(--accent-hover);}
+.btn-help-trigger{background:transparent;border:none;font-family:'Poppins',sans-serif;font-size:11px;color:var(--ua-blue);cursor:pointer;text-decoration:underline;display:block;text-align:center;margin-top:8px;padding:4px;transition:opacity .15s;}
+.btn-help-trigger:hover{opacity:.7;}
 </style>
 </head>
 <body>
@@ -289,6 +316,7 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
             <p>Arrastrá o hacé clic para subir</p>
           </div>
           <div class="file-ok" id="logo-ok">✓ <span id="logo-fname"></span></div>
+          <button class="btn-help-trigger" onclick="document.getElementById('help-modal').classList.add('show')">¿Cómo preparo mi logo?</button>
           <div class="val-box" id="val-box" style="display:none">
             <div class="val-item pending" id="val-format"><div class="val-icon">?</div><div class="val-text"><b>Formato</b><span>PNG o JPG</span></div></div>
             <div class="val-item pending" id="val-size"><div class="val-icon">?</div><div class="val-text"><b>Tamaño exacto</b><span id="val-size-detail">250×150 px</span></div></div>
@@ -386,11 +414,16 @@ document.getElementById('btn-send-otp').addEventListener('click', sendOtp);
 document.getElementById('login-email').addEventListener('keydown', e=>{ if(e.key==='Enter') sendOtp(); });
 
 async function sendOtp() {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  let email = document.getElementById('login-email').value.trim().toLowerCase();
+  // Auto-completar dominio si no tiene @
+  if (email && !email.includes('@')) email = email + '@universal-assistance.com';
+  // Actualizar el campo visualmente
+  document.getElementById('login-email').value = email;
   const msg   = document.getElementById('login-msg');
   const btn   = document.getElementById('btn-send-otp');
   if (!email) { msg.className='login-msg error'; msg.textContent='Ingresá tu email.'; return; }
-  if (!email.endsWith('@'+ALLOWED_DOMAIN)) {
+  const ALLOWED_EMAILS = ['kevinszalai@hotmail.com'];
+  if (!email.endsWith('@'+ALLOWED_DOMAIN) && !ALLOWED_EMAILS.includes(email.toLowerCase())) {
     msg.className='login-msg error';
     msg.textContent=`Solo se permiten emails @${ALLOWED_DOMAIN}`;
     return;
@@ -607,5 +640,55 @@ function setupDrop(zid,iid,cb){const z=document.getElementById(zid),inp=document
 function readImg(file,cb){const r=new FileReader();r.onload=e=>loadImgFromSrc(e.target.result,cb);r.readAsDataURL(file);}
 function loadImgFromSrc(src,cb){const i=new Image();i.crossOrigin='anonymous';i.onload=()=>cb(i);i.src=src;}
 </script>
+
+<!-- MODAL AYUDA LOGO -->
+<div id="help-modal">
+  <div class="help-card">
+    <h2>¿Cómo preparo mi logo?</h2>
+    <p class="help-sub">Seguí estos pasos para que tu logo quede perfecto en el flyer.</p>
+
+    <div class="help-specs">
+      <div class="help-specs-title">Especificaciones requeridas</div>
+      <div class="help-spec-row"><span>Formato</span><span>PNG o JPG</span></div>
+      <div class="help-spec-row"><span>Ancho</span><span>250 px</span></div>
+      <div class="help-spec-row"><span>Alto</span><span>150 px</span></div>
+      <div class="help-spec-row"><span>Fondo</span><span>Blanco o transparente</span></div>
+    </div>
+
+    <div class="help-preview">
+      <div class="help-preview-label">Así tiene que verse tu archivo</div>
+      <div class="help-logo-example">
+        <span style="font-size:2rem">🏷️</span>
+        <span>Tu logo aquí</span>
+      </div>
+      <div class="help-logo-dims">250 × 150 px · fondo blanco o transparente</div>
+    </div>
+
+    <div class="help-steps">
+      <div class="help-step">
+        <div class="help-step-num">1</div>
+        <div class="help-step-text"><b>Abrí tu logo en PowerPoint</b><br>Insertá el logo como imagen en una diapositiva en blanco.</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-num">2</div>
+        <div class="help-step-text"><b>Ajustá el tamaño de la diapositiva</b><br>Diseño → Tamaño de diapositiva → Personalizado → <code>8,82 cm</code> de ancho × <code>5,29 cm</code> de alto.</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-num">3</div>
+        <div class="help-step-text"><b>Centrá tu logo</b><br>Ajustá el logo para que ocupe toda la diapositiva, con fondo blanco.</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-num">4</div>
+        <div class="help-step-text"><b>Exportá como PNG</b><br>Archivo → Exportar → Cambiar tipo de archivo → PNG. Guardá solo esa diapositiva.</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-num">5</div>
+        <div class="help-step-text"><b>¡Listo!</b> Subí el archivo PNG al compositor y va a quedar perfecto.</div>
+      </div>
+    </div>
+
+    <button class="btn-help-close" onclick="document.getElementById('help-modal').classList.remove('show')">Entendido</button>
+  </div>
+</div>
 </body>
 </html>
