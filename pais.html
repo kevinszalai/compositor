@@ -569,8 +569,10 @@ document.getElementById('btn-logout').addEventListener('click',()=>{
 async function init() {
   if(!paisKey){showError('No se especificó un país válido.');return;}
   try{
+    console.log('Buscando flyers para país:', paisKey);
     const q=query(collection(db,'flyers'),where('paises','array-contains',paisKey));
     const snap=await getDocs(q);
+    console.log('Flyers encontrados:', snap.size);
     if(snap.empty){document.getElementById('ph-loading').style.display='none';document.getElementById('app-main').style.display='block';document.getElementById('no-flyers-msg').style.display='block';return;}
     flyers=snap.docs.map(d=>({id:d.id,...d.data()}));
     activeFlyerIdx=0;syncCfg();
