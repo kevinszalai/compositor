@@ -176,6 +176,12 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 .lock-ratio{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);margin-bottom:10px;cursor:pointer;user-select:none;}
 .lock-ratio input{accent-color:var(--ua-blue);cursor:pointer;}
 .lock-ratio.active{color:var(--ua-blue);}
+
+.drag-handle{cursor:grab;color:var(--hint);font-size:16px;padding:0 4px;flex-shrink:0;user-select:none;}
+.drag-handle:active{cursor:grabbing;}
+.flyer-item-admin{transition:opacity .2s,transform .15s;}
+.flyer-item-admin.dragging{opacity:.4;}
+.flyer-item-admin.drag-over{border-color:var(--ua-cyan);background:var(--ua-cyan-lt);}
 </style>
 </head>
 <body>
@@ -947,10 +953,49 @@ function resetForm(){
   ['sx:88:%','sy:84:%','slw:250:','slh:150:'].forEach(s=>{const[id,val,suf]=s.split(':');document.getElementById(id).value=val;document.getElementById('v'+id.slice(1)).textContent=val+suf;});if(document.getElementById('inp-lw')){document.getElementById('inp-lw').value=250;document.getElementById('inp-lh').value=150;}
 }
 
+
+// ── DRAG & DROP REORDER ───────────────────────────────────────
+let dragSrcId = null;
+
+window._dragStart = function(e) {
+  dragSrcId = e.currentTarget.dataset.id;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+};
+window._dragOver = function(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  document.querySelectorAll('.flyer-item-admin').forEach(el => el.classList.remove('drag-over'));
+  e.currentTarget.classList.add('drag-over');
+};
+window._drop = async function(e) {
+  e.preventDefault();
+  const targetId = e.currentTarget.dataset.id;
+  if (!dragSrcId || dragSrcId === targetId) {
+    document.querySelectorAll('.flyer-item-admin').forEach(el => {
+      el.classList.remove('dragging','drag-over');
+    });
+    return;
+  }
+  // Reorder publishedFlyers array
+  const srcIdx = publishedFlyers.findIndex(f => f.id === dragSrcId);
+  const tgtIdx = publishedFlyers.findIndex(f => f.id === targetId);
+  const [moved] = publishedFlyers.splice(srcIdx, 1);
+  publishedFlyers.splice(tgtIdx, 0, moved);
+  // Save order to Firestore
+  try {
+    await Promise.all(publishedFlyers.map((f, i) =>
+      updateDoc(doc(db, 'flyers', f.id), { order: i })
+    ));
+  } catch(e) { console.warn('Error guardando orden:', e); }
+  renderFlyersList();
+  dragSrcId = null;
+};
+
 async function loadFlyers(){
   try{
     const snap=await getDocs(collection(db,'flyers'));
-    publishedFlyers=snap.docs.map(d=>({id:d.id,...d.data()}));renderFlyersList();
+    publishedFlyers=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order??999)-(b.order??999));renderFlyersList();
   }catch(e){console.warn(e);}
 }
 
@@ -960,14 +1005,18 @@ function renderFlyersList(){
   list.innerHTML=publishedFlyers.map(f=>{
     const paisesLabels=(f.paises||[]).map(p=>PAISES[p]||p).join(', ');
     const expiryTag = f.expiry ? ' <span style="font-size:9px;background:#fff3cd;color:#664d03;border-radius:4px;padding:1px 5px">⏱ vence ' + f.expiry + '</span>' : '';
+    const firstPais = (f.paises && f.paises[0]) ? f.paises[0] : '';
+    const previewUrl = firstPais ? 'pais.html?pais=' + firstPais : '';
     return [
-      '<div class="flyer-item-admin">',
+      '<div class="flyer-item-admin" draggable="true" data-id="' + f.id + '" ondragstart="window._dragStart(event)" ondragover="window._dragOver(event)" ondrop="window._drop(event)">',
+      '<span class="drag-handle" title="Arrastrar para reordenar">⠿</span>',
       '<img class="fi-thumb" src="' + f.b64 + '" alt=""/>',
       '<div class="fi-info">',
       '<div class="fi-name">' + (f.name||'Sin nombre') + expiryTag + '</div>',
       '<div class="fi-paises">' + paisesLabels + '</div>',
       '</div>',
       '<div class="fi-actions">',
+      previewUrl ? '<a class="fi-btn" href="' + previewUrl + '" target="_blank" title="Ver como comercial">👁</a>' : '',
       '<button class="fi-btn fi-btn-edit" onclick="window._editFlyer(\'' + f.id + '\')">Editar</button>',
       '<button class="fi-btn fi-btn-del" onclick="window._deleteFlyer(\'' + f.id + '\')">✕</button>',
       '</div></div>'
