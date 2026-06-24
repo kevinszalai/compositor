@@ -164,6 +164,18 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
   .metrics-grid{grid-template-columns:repeat(2,1fr);}
   main{padding:1rem;}
 }
+
+/* ── SIZE CONTROLS ── */
+.size-control{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.size-control-label{font-size:11px;color:var(--muted);flex:1;}
+.size-control-label b{color:var(--ua-blue);font-weight:600;}
+.size-btn{width:28px;height:28px;border-radius:7px;border:1.5px solid var(--border2);background:var(--surface);color:var(--muted);font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;line-height:1;}
+.size-btn:hover{border-color:var(--ua-blue);color:var(--ua-blue);background:var(--ua-blue-lt);}
+.size-input{width:60px;padding:5px 6px;border:1.5px solid var(--border2);border-radius:7px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;text-align:center;background:var(--bg);color:var(--ua-dark);outline:none;}
+.size-input:focus{border-color:var(--ua-blue);}
+.lock-ratio{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);margin-bottom:10px;cursor:pointer;user-select:none;}
+.lock-ratio input{accent-color:var(--ua-blue);cursor:pointer;}
+.lock-ratio.active{color:var(--ua-blue);}
 </style>
 </head>
 <body>
@@ -254,8 +266,27 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
           <div class="card-label">Posición del logo</div>
           <div class="sl"><div class="sl-lbl">X — desde la izquierda <b id="vx">88%</b></div><input type="range" id="sx" min="0" max="99" value="88" step="1"/></div>
           <div class="sl"><div class="sl-lbl">Y — desde arriba <b id="vy">84%</b></div><input type="range" id="sy" min="0" max="99" value="84" step="1"/></div>
-          <div class="sl"><div class="sl-lbl">Ancho (px) <b id="vlw">250</b></div><input type="range" id="slw" min="50" max="500" value="250" step="5"/></div>
-          <div class="sl"><div class="sl-lbl">Alto (px) <b id="vlh">150</b></div><input type="range" id="slh" min="50" max="500" value="150" step="5"/></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Tamaño del área del logo</div>
+          <label class="lock-ratio active" id="lock-label">
+            <input type="checkbox" id="lock-ratio" checked/>
+            Mantener proporción al cambiar tamaño
+          </label>
+          <div class="size-control">
+            <span class="size-control-label">Ancho (px) <b id="vlw">250</b></span>
+            <button class="size-btn" onclick="adjustSize('lw',-5)">−</button>
+            <input class="size-input" id="inp-lw" type="number" value="250" min="50" max="600"/>
+            <button class="size-btn" onclick="adjustSize('lw',5)">+</button>
+          </div>
+          <input type="range" id="slw" min="50" max="600" value="250" step="5" style="margin-bottom:12px"/>
+          <div class="size-control">
+            <span class="size-control-label">Alto (px) <b id="vlh">150</b></span>
+            <button class="size-btn" onclick="adjustSize('lh',-5)">−</button>
+            <input class="size-input" id="inp-lh" type="number" value="150" min="50" max="600"/>
+            <button class="size-btn" onclick="adjustSize('lh',5)">+</button>
+          </div>
+          <input type="range" id="slh" min="50" max="600" value="150" step="5"/>
         </div>
         <div class="card">
           <button class="btn btn-primary" id="btn-publish">Publicar flyer</button>
@@ -757,10 +788,88 @@ function handleFlyerFile(f){
   fr.readAsDataURL(f);
 }
 
+
+// ── SIZE CONTROLS ─────────────────────────────────────────────
+const RATIO_DEFAULT = 250/150; // ~1.667
+
+function adjustSize(dim, delta) {
+  const isLocked = document.getElementById('lock-ratio').checked;
+  const lw = parseInt(document.getElementById('slw').value);
+  const lh = parseInt(document.getElementById('slh').value);
+  let newLw = lw, newLh = lh;
+
+  if (dim === 'lw') {
+    newLw = Math.min(600, Math.max(50, lw + delta));
+    if (isLocked) newLh = Math.round(newLw / (lw/lh || RATIO_DEFAULT));
+  } else {
+    newLh = Math.min(600, Math.max(50, lh + delta));
+    if (isLocked) newLw = Math.round(newLh * (lw/lh || RATIO_DEFAULT));
+  }
+  setSizeValues(newLw, newLh);
+  cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
+  if(flyerImg) renderAdminCanvas();
+}
+
+function setSizeValues(lw, lh) {
+  lw = Math.min(600, Math.max(50, lw));
+  lh = Math.min(600, Math.max(50, lh));
+  document.getElementById('slw').value = lw;
+  document.getElementById('slh').value = lh;
+  document.getElementById('vlw').textContent = lw;
+  document.getElementById('vlh').textContent = lh;
+  document.getElementById('inp-lw').value = lw;
+  document.getElementById('inp-lh').value = lh;
+}
+
+// Direct input fields
+document.getElementById('inp-lw').addEventListener('change', function() {
+  const isLocked = document.getElementById('lock-ratio').checked;
+  const lh = parseInt(document.getElementById('slh').value);
+  const lw = parseInt(document.getElementById('slw').value);
+  let newLw = Math.min(600, Math.max(50, parseInt(this.value)||250));
+  let newLh = isLocked ? Math.round(newLw / (lw/lh || RATIO_DEFAULT)) : lh;
+  setSizeValues(newLw, newLh);
+  cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
+  if(flyerImg) renderAdminCanvas();
+});
+document.getElementById('inp-lh').addEventListener('change', function() {
+  const isLocked = document.getElementById('lock-ratio').checked;
+  const lw = parseInt(document.getElementById('slw').value);
+  const lh = parseInt(document.getElementById('slh').value);
+  let newLh = Math.min(600, Math.max(50, parseInt(this.value)||150));
+  let newLw = isLocked ? Math.round(newLh * (lw/lh || RATIO_DEFAULT)) : lw;
+  setSizeValues(newLw, newLh);
+  cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
+  if(flyerImg) renderAdminCanvas();
+});
+
+// Lock ratio toggle label
+document.getElementById('lock-ratio').addEventListener('change', function() {
+  document.getElementById('lock-label').classList.toggle('active', this.checked);
+});
+
+window.adjustSize = adjustSize;
+
 // ── SLIDERS ──────────────────────────────────────────────────
 [['sx','vx','%'],['sy','vy','%'],['slw','vlw',''],['slh','vlh','']].forEach(([sid,vid,suf])=>{
   document.getElementById(sid).addEventListener('input',()=>{
-    document.getElementById(vid).textContent=document.getElementById(sid).value+suf;
+    const val = parseInt(document.getElementById(sid).value);
+    document.getElementById(vid).textContent = val + suf;
+    // Sync input fields for lw/lh
+    if(sid==='slw'){
+      const isLocked=document.getElementById('lock-ratio').checked;
+      const lh=parseInt(document.getElementById('slh').value);
+      const oldLw=cfg.lw||250;
+      if(isLocked && oldLw){
+        const newLh=Math.round(val/(oldLw/lh||RATIO_DEFAULT));
+        document.getElementById('slh').value=newLh;
+        document.getElementById('vlh').textContent=newLh;
+        document.getElementById('inp-lh').value=newLh;
+      }
+      document.getElementById('inp-lw').value=val;
+    } else if(sid==='slh'){
+      document.getElementById('inp-lh').value=val;
+    }
     cfg={px:parseInt(document.getElementById('sx').value)/100,py:parseInt(document.getElementById('sy').value)/100,lw:parseInt(document.getElementById('slw').value),lh:parseInt(document.getElementById('slh').value)};
     if(flyerImg)renderAdminCanvas();
   });
@@ -823,7 +932,7 @@ function resetForm(){
   document.getElementById('admin-canvas').style.display='none';
   document.getElementById('btn-publish').textContent='Publicar flyer';
   cfg={px:0.88,py:0.844,lw:250,lh:150};
-  ['sx:88:%','sy:84:%','slw:250:','slh:150:'].forEach(s=>{const[id,val,suf]=s.split(':');document.getElementById(id).value=val;document.getElementById('v'+id.slice(1)).textContent=val+suf;});
+  ['sx:88:%','sy:84:%','slw:250:','slh:150:'].forEach(s=>{const[id,val,suf]=s.split(':');document.getElementById(id).value=val;document.getElementById('v'+id.slice(1)).textContent=val+suf;});if(document.getElementById('inp-lw')){document.getElementById('inp-lw').value=250;document.getElementById('inp-lh').value=150;}
 }
 
 async function loadFlyers(){
