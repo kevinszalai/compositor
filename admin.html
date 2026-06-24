@@ -239,6 +239,11 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
           <input class="flyer-name-input" id="flyer-name" type="text" placeholder="Ej: Hot Sale 2025" maxlength="50"/>
         </div>
         <div class="card">
+          <div class="card-label">Fecha límite <span style="font-size:10px;color:var(--hint);font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <input type="date" id="flyer-expiry" style="width:100%;padding:8px 10px;border:1.5px solid var(--border2);border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:13px;background:var(--bg);color:var(--ua-dark);outline:none;transition:border-color .15s;"/>
+          <p style="font-size:10px;color:var(--hint);margin-top:6px;line-height:1.5">Si se completa, el flyer se dará de baja automáticamente en esa fecha y dejará de verse en los países asignados.</p>
+        </div>
+        <div class="card">
           <div class="card-label">Países donde se muestra</div>
           <div class="paises-actions">
             <button class="paises-action-btn" onclick="selectAllPaises()">Todos</button>
@@ -913,7 +918,9 @@ document.getElementById('btn-publish').addEventListener('click',async()=>{
   if(!paises.length){status.style.color='var(--red)';status.textContent='Seleccioná al menos un país.';return;}
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Publicando...';status.textContent='';
   try{
+    const expiryVal = document.getElementById('flyer-expiry').value;
     const data={name,paises,px:cfg.px,py:cfg.py,lw:cfg.lw,lh:cfg.lh,updatedAt:new Date().toISOString()};
+    if(expiryVal) data.expiry = expiryVal;
     if(flyerDataUrl)data.b64=flyerDataUrl;
     if(editingId)await updateDoc(doc(db,'flyers',editingId),data);
     else await addDoc(collection(db,'flyers'),data);
@@ -926,7 +933,7 @@ document.getElementById('btn-publish').addEventListener('click',async()=>{
 
 function resetForm(){
   editingId=null;flyerDataUrl=null;flyerImg=null;
-  document.getElementById('flyer-name').value='';clearAllPaises();
+  document.getElementById('flyer-name').value='';document.getElementById('flyer-expiry').value='';clearAllPaises();
   document.getElementById('flyer-ok').style.display='none';
   document.getElementById('ph-admin').style.display='flex';
   document.getElementById('admin-canvas').style.display='none';
@@ -947,7 +954,8 @@ function renderFlyersList(){
   if(!publishedFlyers.length){list.innerHTML='<div style="font-size:11px;color:var(--hint);text-align:center;padding:1rem">Sin flyers publicados todavía</div>';return;}
   list.innerHTML=publishedFlyers.map(f=>{
     const paisesLabels=(f.paises||[]).map(p=>PAISES[p]||p).join(', ');
-    return`<div class="flyer-item-admin"><img class="fi-thumb" src="${f.b64}" alt=""/><div class="fi-info"><div class="fi-name">${f.name||'Sin nombre'}</div><div class="fi-paises">${paisesLabels}</div></div><div class="fi-actions"><button class="fi-btn fi-btn-edit" onclick="window._editFlyer('${f.id}')">Editar</button><button class="fi-btn fi-btn-del" onclick="window._deleteFlyer('${f.id}')">✕</button></div></div>`;
+    const expiryTag = f.expiry ? `<span style="font-size:9px;background:#fff3cd;color:#664d03;border-radius:4px;padding:1px 5px;margin-left:4px">⏱ vence ${f.expiry}</span>` : '';
+    return`<div class="flyer-item-admin"><img class="fi-thumb" src="${f.b64}" alt=""/><div class="fi-info"><div class="fi-name">${f.name||'Sin nombre'}${expiryTag}</div><div class="fi-paises">${paisesLabels}</div></div>`<div class="fi-actions"><button class="fi-btn fi-btn-edit" onclick="window._editFlyer('${f.id}')">Editar</button><button class="fi-btn fi-btn-del" onclick="window._deleteFlyer('${f.id}')">✕</button></div></div>`;
   }).join('');
 }
 
@@ -955,6 +963,7 @@ window._editFlyer=function(id){
   const f=publishedFlyers.find(x=>x.id===id);if(!f)return;
   editingId=id;document.getElementById('flyer-name').value=f.name||'';setSelectedPaises(f.paises||[]);
   cfg={px:f.px??0.88,py:f.py??0.844,lw:f.lw??250,lh:f.lh??150};
+  document.getElementById('flyer-expiry').value=f.expiry||'';
   document.getElementById('sx').value=Math.round(cfg.px*100);document.getElementById('vx').textContent=Math.round(cfg.px*100)+'%';
   document.getElementById('sy').value=Math.round(cfg.py*100);document.getElementById('vy').textContent=Math.round(cfg.py*100)+'%';
   document.getElementById('slw').value=cfg.lw;document.getElementById('vlw').textContent=cfg.lw;
