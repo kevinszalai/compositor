@@ -960,7 +960,18 @@ function renderFlyersList(){
   list.innerHTML=publishedFlyers.map(f=>{
     const paisesLabels=(f.paises||[]).map(p=>PAISES[p]||p).join(', ');
     const expiryTag = f.expiry ? ' <span style="font-size:9px;background:#fff3cd;color:#664d03;border-radius:4px;padding:1px 5px">⏱ vence ' + f.expiry + '</span>' : '';
-    return '<div class="flyer-item-admin"><img class="fi-thumb" src="' + f.b64 + '" alt=""/><div class="fi-info"><div class="fi-name">' + (f.name||'Sin nombre') + expiryTag + '</div><div class="fi-paises">' + paisesLabels + '</div></div><div class="fi-actions"><button class="fi-btn fi-btn-edit" onclick='window._editFlyer(\"' + f.id + '\")'>Editar</button><button class="fi-btn fi-btn-del" onclick='window._deleteFlyer(\"' + f.id + '\")'>✕</button></div></div>';
+    return [
+      '<div class="flyer-item-admin">',
+      '<img class="fi-thumb" src="' + f.b64 + '" alt=""/>',
+      '<div class="fi-info">',
+      '<div class="fi-name">' + (f.name||'Sin nombre') + expiryTag + '</div>',
+      '<div class="fi-paises">' + paisesLabels + '</div>',
+      '</div>',
+      '<div class="fi-actions">',
+      '<button class="fi-btn fi-btn-edit" onclick="window._editFlyer(\'' + f.id + '\')">Editar</button>',
+      '<button class="fi-btn fi-btn-del" onclick="window._deleteFlyer(\'' + f.id + '\')">✕</button>',
+      '</div></div>'
+    ].join('');
   }).join('');
 }
 
