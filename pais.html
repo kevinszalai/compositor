@@ -307,7 +307,7 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
               Para garantizar la calidad del cobranding, tu logo debe cumplir estas condiciones.<br><br>
               <span class="req">⚠ Obligatorio:</span><br>
               · Formato: <b>PNG o JPG</b><br>
-              · Tamaño exacto: <b>250 × 150 px</b><br>
+              · Tamaño exacto: <b id="req-size">250 × 150 px</b><br>
               · Fondo: <b>blanco o transparente</b>
             </div>
           </div>
@@ -565,7 +565,23 @@ async function init() {
   }
 }
 
-function syncCfg() { const f=flyers[activeFlyerIdx]; if(f) cfg={px:f.px??0.88,py:f.py??0.844,lw:f.lw??250,lh:f.lh??150}; }
+function syncCfg() {
+  const f = flyers[activeFlyerIdx];
+  if (f) {
+    cfg = {px:f.px??0.88, py:f.py??0.844, lw:f.lw??250, lh:f.lh??150};
+    // Update required logo size dynamically for this flyer
+    const lw = f.lw ?? 250, lh = f.lh ?? 150;
+    // Update info box text
+    const infoSize = document.getElementById('req-size');
+    if (infoSize) infoSize.textContent = lw + ' px de ancho × ' + lh + ' px de alto';
+    // Update validation checklist detail
+    const valDetail = document.getElementById('val-size-detail');
+    if (valDetail) valDetail.textContent = lw + '×' + lh + ' px';
+    // Update LOGO_W/LOGO_H globals
+    window._LOGO_W = lw;
+    window._LOGO_H = lh;
+  }
+}
 function loadActiveFlyer() {
   const f=flyers[activeFlyerIdx]; if(!f) return;
   document.getElementById('ph-loading').style.display='flex';
@@ -621,9 +637,16 @@ function closeSuccess(){const ov=document.getElementById('success-overlay');ov.c
 window.closeSuccess=closeSuccess;
 
 // ── VALIDACIÓN ────────────────────────────────────────────────
-function validateLogo(file,img){return{format:['image/png','image/jpeg','image/jpg'].includes(file.type),size:img.naturalWidth===LOGO_W&&img.naturalHeight===LOGO_H,bg:hasValidBackground(img),w:img.naturalWidth,h:img.naturalHeight};}
+function validateLogo(file,img){
+  const lw = window._LOGO_W || LOGO_W;
+  const lh = window._LOGO_H || LOGO_H;
+  return{format:['image/png','image/jpeg','image/jpg'].includes(file.type),
+    size:img.naturalWidth===lw&&img.naturalHeight===lh,
+    bg:hasValidBackground(img),w:img.naturalWidth,h:img.naturalHeight,
+    reqW:lw,reqH:lh};
+}
 function hasValidBackground(img){const cv=document.createElement('canvas');cv.width=img.naturalWidth;cv.height=img.naturalHeight;const ctx=cv.getContext('2d');ctx.drawImage(img,0,0);const w=cv.width-1,h=cv.height-1;const corners=[ctx.getImageData(0,0,1,1).data,ctx.getImageData(w,0,1,1).data,ctx.getImageData(0,h,1,1).data,ctx.getImageData(w,h,1,1).data];return corners.every(px=>px[3]<30||(px[0]>225&&px[1]>225&&px[2]>225));}
-function updateChecklist(result){document.getElementById('val-box').style.display='flex';function setItem(id,ok,detail){const el=document.getElementById(id);el.className='val-item '+(ok?'ok':'fail');el.querySelector('.val-icon').textContent=ok?'✓':'✕';if(detail)el.querySelector('span').textContent=detail;}setItem('val-format',result.format);setItem('val-size',result.size,result.size?'Perfecto: 250×150 px':'Tu logo es '+result.w+'×'+result.h+' px');setItem('val-bg',result.bg);}
+function updateChecklist(result){document.getElementById('val-box').style.display='flex';function setItem(id,ok,detail){const el=document.getElementById(id);el.className='val-item '+(ok?'ok':'fail');el.querySelector('.val-icon').textContent=ok?'✓':'✕';if(detail)el.querySelector('span').textContent=detail;}setItem('val-format',result.format);const reqStr=(result.reqW||250)+'×'+(result.reqH||150);setItem('val-size',result.size,result.size?'Perfecto: '+reqStr+' px':'Tu logo es '+result.w+'×'+result.h+' px — necesita ser '+reqStr+' px');setItem('val-bg',result.bg);}
 function hideChecklist(){document.getElementById('val-box').style.display='none';}
 
 // ── CANVAS ────────────────────────────────────────────────────
