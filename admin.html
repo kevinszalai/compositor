@@ -766,6 +766,7 @@ function tryUnlock(){
     lock.style.transition='opacity .25s';lock.style.opacity='0';
     setTimeout(()=>lock.style.display='none',260);
     loadFlyers();
+    initSizeControls();
   }else{
     document.getElementById('pin-error').textContent='Código incorrecto.';
     digits.forEach(d=>{d.value='';d.style.borderColor='var(--red)';});digits[0].focus();
@@ -826,34 +827,38 @@ function setSizeValues(lw, lh) {
   document.getElementById('inp-lh').value = lh;
 }
 
-// Direct input fields
-document.getElementById('inp-lw').addEventListener('change', function() {
-  const isLocked = document.getElementById('lock-ratio').checked;
-  const lh = parseInt(document.getElementById('slh').value);
-  const lw = parseInt(document.getElementById('slw').value);
-  let newLw = Math.min(600, Math.max(50, parseInt(this.value)||250));
-  let newLh = isLocked ? Math.round(newLw / (lw/lh || RATIO_DEFAULT)) : lh;
-  setSizeValues(newLw, newLh);
-  cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
-  if(flyerImg) renderAdminCanvas();
-});
-document.getElementById('inp-lh').addEventListener('change', function() {
-  const isLocked = document.getElementById('lock-ratio').checked;
-  const lw = parseInt(document.getElementById('slw').value);
-  const lh = parseInt(document.getElementById('slh').value);
-  let newLh = Math.min(600, Math.max(50, parseInt(this.value)||150));
-  let newLw = isLocked ? Math.round(newLh * (lw/lh || RATIO_DEFAULT)) : lw;
-  setSizeValues(newLw, newLh);
-  cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
-  if(flyerImg) renderAdminCanvas();
-});
-
-// Lock ratio toggle label
-document.getElementById('lock-ratio').addEventListener('change', function() {
-  document.getElementById('lock-label').classList.toggle('active', this.checked);
-});
-
 window.adjustSize = adjustSize;
+
+function initSizeControls() {
+  const inpLw = document.getElementById('inp-lw');
+  const inpLh = document.getElementById('inp-lh');
+  const lockRatio = document.getElementById('lock-ratio');
+  if (!inpLw || !inpLh) return;
+
+  inpLw.addEventListener('change', function() {
+    const isLocked = lockRatio.checked;
+    const lh = parseInt(document.getElementById('slh').value);
+    const lw = parseInt(document.getElementById('slw').value);
+    let newLw = Math.min(600, Math.max(50, parseInt(this.value)||250));
+    let newLh = isLocked ? Math.round(newLw / (lw/lh || RATIO_DEFAULT)) : lh;
+    setSizeValues(newLw, newLh);
+    cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
+    if(flyerImg) renderAdminCanvas();
+  });
+  inpLh.addEventListener('change', function() {
+    const isLocked = lockRatio.checked;
+    const lw = parseInt(document.getElementById('slw').value);
+    const lh = parseInt(document.getElementById('slh').value);
+    let newLh = Math.min(600, Math.max(50, parseInt(this.value)||150));
+    let newLw = isLocked ? Math.round(newLh * (lw/lh || RATIO_DEFAULT)) : lw;
+    setSizeValues(newLw, newLh);
+    cfg = {px:parseInt(document.getElementById('sx').value)/100, py:parseInt(document.getElementById('sy').value)/100, lw:newLw, lh:newLh};
+    if(flyerImg) renderAdminCanvas();
+  });
+  if (lockRatio) lockRatio.addEventListener('change', function() {
+    document.getElementById('lock-label').classList.toggle('active', this.checked);
+  });
+}
 
 // ── SLIDERS ──────────────────────────────────────────────────
 [['sx','vx','%'],['sy','vy','%'],['slw','vlw',''],['slh','vlh','']].forEach(([sid,vid,suf])=>{
@@ -954,8 +959,8 @@ function renderFlyersList(){
   if(!publishedFlyers.length){list.innerHTML='<div style="font-size:11px;color:var(--hint);text-align:center;padding:1rem">Sin flyers publicados todavía</div>';return;}
   list.innerHTML=publishedFlyers.map(f=>{
     const paisesLabels=(f.paises||[]).map(p=>PAISES[p]||p).join(', ');
-    const expiryTag = f.expiry ? `<span style="font-size:9px;background:#fff3cd;color:#664d03;border-radius:4px;padding:1px 5px;margin-left:4px">⏱ vence ${f.expiry}</span>` : '';
-    return`<div class="flyer-item-admin"><img class="fi-thumb" src="${f.b64}" alt=""/><div class="fi-info"><div class="fi-name">${f.name||'Sin nombre'}${expiryTag}</div><div class="fi-paises">${paisesLabels}</div></div>`<div class="fi-actions"><button class="fi-btn fi-btn-edit" onclick="window._editFlyer('${f.id}')">Editar</button><button class="fi-btn fi-btn-del" onclick="window._deleteFlyer('${f.id}')">✕</button></div></div>`;
+    const expiryTag = f.expiry ? ' <span style="font-size:9px;background:#fff3cd;color:#664d03;border-radius:4px;padding:1px 5px">⏱ vence ' + f.expiry + '</span>' : '';
+    return '<div class="flyer-item-admin"><img class="fi-thumb" src="' + f.b64 + '" alt=""/><div class="fi-info"><div class="fi-name">' + (f.name||'Sin nombre') + expiryTag + '</div><div class="fi-paises">' + paisesLabels + '</div></div><div class="fi-actions"><button class="fi-btn fi-btn-edit" onclick='window._editFlyer(\"' + f.id + '\")'>Editar</button><button class="fi-btn fi-btn-del" onclick='window._deleteFlyer(\"' + f.id + '\")'>✕</button></div></div>';
   }).join('');
 }
 
