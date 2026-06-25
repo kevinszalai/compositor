@@ -92,10 +92,10 @@ input[type=range]{width:100%;accent-color:var(--ua-blue);}
 .flyer-item-admin{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border-radius:10px;border:1.5px solid var(--border);transition:all .15s;}
 .flyer-item-admin:hover{border-color:var(--ua-blue);}
 .flyer-item-admin img.fi-thumb{width:56px;height:36px;object-fit:cover;border-radius:5px;border:1px solid var(--border);flex-shrink:0;}
-.fi-info{flex:1;min-width:0;}
+.fi-info{flex:1;min-width:0;overflow:hidden;}
 .fi-name{font-size:12px;font-weight:600;color:var(--ua-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fi-paises{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fi-actions{display:flex;gap:5px;flex-shrink:0;}
+.fi-paises{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+.fi-actions{display:flex;gap:5px;flex-shrink:0;margin-left:auto;}
 .fi-btn{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;border:1.5px solid var(--border2);background:var(--surface);color:var(--muted);transition:all .15s;}
 .fi-btn:hover{border-color:var(--ua-blue);color:var(--ua-blue);}
 .fi-btn-del{border-color:var(--red-bg);color:var(--red);}
@@ -182,6 +182,11 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
 .flyer-item-admin{transition:opacity .2s,transform .15s;}
 .flyer-item-admin.dragging{opacity:.4;}
 .flyer-item-admin.drag-over{border-color:var(--ua-cyan);background:var(--ua-cyan-lt);}
+
+.bulk-pais-check{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:7px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-size:11px;transition:all .15s;}
+.bulk-pais-check:hover{border-color:var(--ua-blue);}
+.bulk-pais-check input{accent-color:var(--ua-blue);cursor:pointer;}
+.bulk-pais-check:has(input:checked){border-color:var(--ua-cyan);background:var(--ua-cyan-lt);}
 </style>
 </head>
 <body>
@@ -330,9 +335,43 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
       <div style="font-size:12px;color:var(--muted);line-height:1.7">
         · Si un email <b style="color:var(--ua-dark)">no está en ninguna lista</b>, ve todos los países.<br>
         · Si un email <b style="color:var(--ua-dark)">está en una o más listas</b>, solo ve los países donde figura su email.<br>
-        · Un país sin lista es visible para cualquier usuario que no tenga restricciones. Si el usuario tiene restricciones, solo ve los países de sus listas, independientemente de si ese país tiene lista o no.
+        · Un país sin lista es visible para cualquier usuario sin restricciones.
       </div>
     </div>
+
+    <!-- AGREGAR EMAILS EN MASA -->
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-label">Agregar emails</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Pegá uno o más emails, uno por línea. Luego seleccioná los países y guardá.</div>
+      <textarea id="bulk-emails" placeholder="nombre.apellido@universal-assistance.com&#10;otro.email@universal-assistance.com&#10;..." style="width:100%;height:100px;padding:8px 10px;border:1.5px solid var(--border2);border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:12px;background:var(--bg);color:var(--ua-dark);outline:none;resize:vertical;line-height:1.6;transition:border-color .15s" onfocus="this.style.borderColor='var(--ua-blue)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+      <div style="margin:10px 0 8px;font-size:11px;font-weight:600;color:var(--muted)">Países a asignar:</div>
+      <div class="paises-grid" id="bulk-paises-grid">
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="argentina"/><span>Argentina</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="bolivia"/><span>Bolivia</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="chile"/><span>Chile</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="colombia"/><span>Colombia</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="costa_rica"/><span>Costa Rica</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="ecuador"/><span>Ecuador</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="el_salvador"/><span>El Salvador</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="guatemala"/><span>Guatemala</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="honduras"/><span>Honduras</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="mexico"/><span>México</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="nicaragua"/><span>Nicaragua</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="panama"/><span>Panamá</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="paraguay"/><span>Paraguay</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="peru"/><span>Perú</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="dominicana"/><span>Rep. Dominicana</span></label>
+            <label class="bulk-pais-check"><input type="checkbox" class="bulk-pais-cb" value="uruguay"/><span>Uruguay</span></label>
+          </div>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="paises-action-btn" onclick="bulkSelectAll()">Todos</button>
+        <button class="paises-action-btn" onclick="bulkClearAll()">Ninguno</button>
+      </div>
+      <button onclick="saveBulkEmails()" style="margin-top:12px;width:100%;padding:10px;border-radius:var(--r);background:var(--ua-blue);color:#fff;border:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Guardar emails</button>
+      <div id="bulk-status" style="font-size:11px;text-align:center;margin-top:8px;min-height:16px"></div>
+    </div>
+
+    <!-- LISTA POR PAÍS -->
     <div id="access-countries">
             <div class="access-country" id="ac-argentina">
               <div class="ac-header" onclick="toggleCountry('argentina')">
@@ -954,6 +993,50 @@ function resetForm(){
 }
 
 
+
+// ── BULK EMAILS ───────────────────────────────────────────────
+function bulkSelectAll() { document.querySelectorAll('.bulk-pais-cb').forEach(cb => cb.checked=true); }
+function bulkClearAll()  { document.querySelectorAll('.bulk-pais-cb').forEach(cb => cb.checked=false); }
+window.bulkSelectAll = bulkSelectAll;
+window.bulkClearAll  = bulkClearAll;
+
+async function saveBulkEmails() {
+  const raw = document.getElementById('bulk-emails').value;
+  const status = document.getElementById('bulk-status');
+  const selectedPaises = [...document.querySelectorAll('.bulk-pais-cb:checked')].map(cb => cb.value);
+
+  // Parse emails
+  const emails = raw.split(/[\n,;]+/)
+    .map(e => e.trim().toLowerCase())
+    .filter(e => e.includes('@'));
+
+  if (!emails.length) { status.style.color='var(--red)'; status.textContent='No hay emails válidos.'; return; }
+  if (!selectedPaises.length) { status.style.color='var(--red)'; status.textContent='Seleccioná al menos un país.'; return; }
+
+  status.style.color='var(--muted)'; status.textContent='Guardando...';
+
+  // Add emails to each selected country
+  selectedPaises.forEach(pais => {
+    if (!accessLists[pais]) accessLists[pais] = [];
+    emails.forEach(email => {
+      if (!accessLists[pais].includes(email)) accessLists[pais].push(email);
+    });
+  });
+
+  try {
+    await saveAccessLists();
+    renderAllAccessLists();
+    document.getElementById('bulk-emails').value = '';
+    bulkClearAll();
+    status.style.color='var(--green)';
+    status.textContent = emails.length + ' email' + (emails.length!==1?'s':'') + ' agregado' + (emails.length!==1?'s':'') + ' a ' + selectedPaises.length + ' país' + (selectedPaises.length!==1?'es':'') + '.';
+    setTimeout(() => status.textContent='', 4000);
+  } catch(e) {
+    status.style.color='var(--red)'; status.textContent='Error al guardar.';
+  }
+}
+window.saveBulkEmails = saveBulkEmails;
+
 // ── DRAG & DROP REORDER ───────────────────────────────────────
 let dragSrcId = null;
 
@@ -1096,14 +1179,14 @@ window.addEmail=function(pais){
   accessLists[pais].push(email);
   renderAccessList(pais);
   input.value='';
-  saveAccessLists(pais);
+  saveAccessLists().catch(e=>console.error(e));
 };
 
 window.removeEmail=function(pais,email){
   if(!accessLists[pais])return;
   accessLists[pais]=accessLists[pais].filter(e=>e!==email);
   renderAccessList(pais);
-  saveAccessLists(pais);
+  saveAccessLists().catch(e=>console.error(e));
 };
 
 async function saveAccessLists(pais){

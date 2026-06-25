@@ -338,8 +338,9 @@ footer{text-align:center;font-size:11px;color:var(--hint);padding:1.5rem 2rem;bo
             </div>
             <button class="btn-help-trigger" onclick="document.getElementById('help-modal').classList.add('show')">¿Cómo preparo mi logo?</button>
           </div>
-          <div class="card">
-            <button class="btn btn-primary" id="btn-dl" disabled>↓ Descargar flyer</button>
+          <div class="card" style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn btn-primary" id="btn-dl" disabled>↓ Descargar con logo</button>
+            <button class="btn" id="btn-dl-plain" style="background:var(--surface2);color:var(--muted);border:1.5px solid var(--border2)">↓ Descargar sin logo</button>
           </div>
         </div>
       </div>
@@ -643,11 +644,25 @@ setupDrop('logo-drop','logo-input',(f,img)=>{
 });
 
 // ── DOWNLOAD ──────────────────────────────────────────────────
+document.getElementById('btn-dl-plain').addEventListener('click', () => {
+  if (!flyerImg) return;
+  const tmp = document.createElement('canvas');
+  const W = hqFlyerImg.naturalWidth, H = hqFlyerImg.naturalHeight;
+  tmp.width = W; tmp.height = H;
+  tmp.getContext('2d').drawImage(hqFlyerImg, 0, 0);
+  const a = document.createElement('a');
+  const flyerName = (flyers[activeFlyerIdx]?.name||'flyer').replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]/g,'').trim();
+  a.download = ('UA ' + paisName + ' ' + flyerName).replace(/\s+/g,'_') + '.png';
+  a.href = tmp.toDataURL('image/png');
+  a.click();
+});
+
 document.getElementById('btn-dl').addEventListener('click',async()=>{
   if(!flyerImg||!logoImg)return;
   const tmp=document.createElement('canvas');drawComposite(tmp,hqFlyerImg||flyerImg,logoImg,cfg);
   const resultB64=tmp.toDataURL('image/png');
-  const a=document.createElement('a');a.download=`flyer_${paisKey}_cobranding.png`;a.href=resultB64;a.click();
+  const a=document.createElement('a');const flyerName = (flyers[activeFlyerIdx]?.name||'flyer').replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]/g,'').trim();
+  a.download = ('UA ' + paisName + ' ' + flyerName).replace(/\s+/g,'_') + '.png';a.href=resultB64;a.click();
   setStep(3);setTimeout(showSuccess,400);
   try{
     await addDoc(collection(db,'results'),{
